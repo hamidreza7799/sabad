@@ -1,11 +1,9 @@
 import React from "react"
-
+import LoginPage from "./pages/LoginPage/LoginPage"
 
 const App = () => {
     return (
-        <h1>
-            Hello World
-        </h1>
+        <LoginPage/>
     )
 }
 

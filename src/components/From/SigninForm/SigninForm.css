@@ -1,0 +1,11 @@
+.validate-form {
+    width: 27%;
+}
+
+@font-face {
+    font-family: "Vazir";
+    src: url('../../../assets/fonts/Vazir.ttf');
+}
+.button{
+    font-family: "Vazir";
+}

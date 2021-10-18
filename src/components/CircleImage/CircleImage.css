@@ -1,0 +1,10 @@
+.circle-card {
+    border-radius: 50%;
+    margin: 28px;
+    background-color: #DADADA;
+}
+
+.circle-media {
+    object-fit: cover;
+    border-radius: 50%;
+}

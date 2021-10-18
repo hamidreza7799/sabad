@@ -1,0 +1,201 @@
+/* * Colors */
+/* * Media queries helper */
+/* * Classes (ampersand + BEM) */
+body{
+    overflow: hidden;
+}
+.login {
+    display: flex;
+    height: 100%;
+}
+.login__welcome-back {
+    z-index: 2;
+    transition: visibility 0.3s ease-in-out;
+    position: absolute;
+    transition: all 0.8s ease-in-out;
+    width: 30%;
+    font-family: 'Quicksand-Bold';
+}
+.login__welcome-back--active {
+    visibility: visible;
+    transform: translateX(0%);
+}
+.login__welcome-back--inactive {
+    visibility: hidden;
+    transform: translateX(-100%);
+}
+.login__welcome-back__logo-container {
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+}
+.login__welcome-back__logo-container--image {
+    width: 38px;
+    height: 38px;
+    margin-right: 4px;
+}
+@media (max-width: 768px) {
+    .login__welcome-back__logo-container {
+        font-size: 0px;
+        justify-content: center;
+   }
+}
+.login__welcome-back__main-container {
+    margin-top: 20%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+.login__welcome-back__main-container__text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    text-align: center;
+}
+.login__welcome-back__main-container__text-container--title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+@media (max-width: 768px) {
+    .login__welcome-back__main-container__text-container {
+        display: none;
+   }
+}
+
+.sidebar-login-button {
+    margin-top: 40px;
+    border: solid 10px white;
+    width: 50%;
+    height: 40px;
+    border-radius: 30px;
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+@media (max-width: 768px) {
+    .sidebar-login-button {
+        font-size: 3vw;
+   }
+}
+
+
+.login__create-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: #986060;
+    font-weight: bold;
+    font-size: 30px;
+    z-index: 2;
+    width: 70%;
+    left: 30.5%;
+    transition: all 0.8s ease-in-out;
+    font-family: 'Quicksand-Bold';
+}
+.login__create-container--active {
+    visibility: visible;
+    transform: translateX(0%);
+}
+.login__create-container--inactive {
+    visibility: hidden;
+    transform: translateX(100%);
+}
+
+
+.login__login-container {
+    position: absolute;
+    transition: all 0.7s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-weight: bold;
+    font-size: 45px;
+    z-index: 2;
+    font-family: 'Quicksand-Bold';
+}
+
+
+
+.login__login-container__main-container {
+    color: #986060;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-weight: bold;
+}
+.login__login-container__main-container--info-text {
+    margin-top: 15px;
+    color: #aeaeae;
+    font-size: 14px;
+}
+.login__login-container__main-container__form-container {
+    margin-top: 3%;
+}
+
+.login__login-container--active {
+    visibility: visible;
+    transform: translateX(0%);
+    opacity: 1;
+    width: 70%;
+}
+.login__login-container--inactive {
+    visibility: hidden;
+    transform: translateX(100%);
+    opacity: 0;
+    width: 0;
+}
+.login__hello-container {
+    width: 30%;
+    left: 70.5%;
+    position: absolute;
+    z-index: 2;
+    transition: all 0.8s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10%;
+    color: white;
+    font-family: 'Quicksand-Bold';
+}
+.login__hello-container--active {
+    visibility: visible;
+    transform: translateX(0%);
+}
+.login__hello-container--inactive {
+    visibility: hidden;
+    transform: translateX(-100%);
+}
+
+
+.sidebar-container {
+    position: absolute;
+    background-color: #4c4c4c;
+    width: 30%;
+    height: 100vh;
+    z-index: 1;
+    transition: transform 1s ease;
+}
+.sidebar-container--left {
+    transform: translateX(0px);
+}
+.sidebar-container--right {
+    transform: translateX(235%);
+}
