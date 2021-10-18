@@ -1,6 +1,3 @@
-/* * Colors */
-/* * Media queries helper */
-/* * Classes (ampersand + BEM) */
 body{
     overflow: hidden;
 }
@@ -18,7 +15,7 @@ body{
 }
 .login__welcome-back--active {
     visibility: visible;
-    transform: translateX(0%);
+    transform: translateX(13%);
 }
 .login__welcome-back--inactive {
     visibility: hidden;
@@ -188,7 +185,7 @@ body{
 .sidebar-container {
     position: absolute;
     background-color: #4c4c4c;
-    width: 30%;
+    width: 40%;
     height: 100vh;
     z-index: 1;
     transition: transform 1s ease;
@@ -197,5 +194,5 @@ body{
     transform: translateX(0px);
 }
 .sidebar-container--right {
-    transform: translateX(235%);
+    transform: translateX(150%);
 }

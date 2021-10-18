@@ -5,9 +5,9 @@ import { IconButton } from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close'
 import DialogTransition from "../DialogTransition"
 import RTL from "../../../../hoc/RTL/RTL"
-import "./SuccessDialog.css"
+import "./MessageDialog.css"
 
-class SuccessDialog extends React.Component {
+class MessageDialog extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -57,4 +57,4 @@ class SuccessDialog extends React.Component {
     }
 }
 
-export default SuccessDialog
+export default MessageDialog

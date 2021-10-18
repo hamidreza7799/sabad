@@ -10,7 +10,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import { styled } from "@mui/system"
 import Loader from '../../components/UI/Loader/Loader'
 import Wrapper from "../../hoc/Wrapper";
-import SuccessDialog from "../../components/UI/Dialog/SuccessDialog/SuccessDialog"
+import MessageDialog from "../../components/UI/Dialog/MessageDialog/MessageDialog"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class LoginPage extends React.Component {
@@ -33,51 +33,30 @@ class LoginPage extends React.Component {
                 <div className="login">
                     <div className={`sidebar-container  ${this.state.login ? 'sidebar-container--left' : 'sidebar-container--right'}`}></div>
                     <div className={`login__welcome-back ${this.state.login ? 'login__welcome-back--active' : 'login__welcome-back--inactive'}`}>
-                        <div className="login__welcome-back__logo-container">
-                            <img className="login__welcome-back__logo-container--image" src={logo} alt="Budwriter" />
-                            Budwriter
-                        </div>
-                        <div className="login__welcome-back__main-container">
-                            <div className="login__welcome-back__main-container__text-container">
-                                <span className="login__welcome-back__main-container__text-container--title">
-                                    Welcome Back!
-                                </span>
-                            </div>
-                            <SidebarButton
-                                variant="contained"
-                                fullWidth
-                                onClick={() => {this.setState({...this.state, login: !this.state.login})}}
-                                startIcon={<ArrowBackIosNewIcon></ArrowBackIosNewIcon>}
-                            > ورود</SidebarButton>
-                        </div>
                     </div>
                     <div className={`login__hello-container ${!this.state.login ? 'login__hello-container--active' : 'login__hello-container--inactive'}`}>
-                        <div className="login__welcome-back__main-container__text-container">
-                            <span className="login__welcome-back__main-container__text-container--title">
-                                Hello, stranger!
-                            </span>
-                        </div>
-                        <SidebarButton
-                                variant="contained"
-                                fullWidth
-                                onClick={() => {this.setState({...this.state, login: !this.state.login})}}
-                                startIcon={<ArrowBackIosNewIcon></ArrowBackIosNewIcon>}
-                        >ثبت نام</SidebarButton>
                     </div>
 
 
                     <div className={`login__create-container ${this.state.login ? 'login__create-container--active' : 'login__create-container--inactive'}`}>
                         <CircleImage></CircleImage>
-                        <SigninForm signinHandler={this.signinHandler}></SigninForm>
+                        <SigninForm signinHandler={this.signinHandler} changeSideBarHandler={this.changeSideBarHandler}></SigninForm>
                     </div>
                     <div className={`login__login-container ${!this.state.login ? 'login__login-container--active' : 'login__login-container--inactive'}`}>
                         <CircleImage></CircleImage>
-                        <SigninForm signinHandler={this.signinHandler}></SigninForm>
+                        <SigninForm signinHandler={this.signinHandler} changeSideBarHandler={this.changeSideBarHandler}></SigninForm>
                     </div>
                 </div>
             </Wrapper>
 
         );
+    }
+
+    changeSideBarHandler = () => {
+        this.setState({
+            ...this.state,
+            login: !this.state.login
+        })
     }
 
     sleep = (milliseconds) => {
