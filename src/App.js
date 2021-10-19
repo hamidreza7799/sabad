@@ -1,9 +1,18 @@
 import React from "react"
 import LoginPage from "./pages/LoginPage/LoginPage"
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Wrapper from "./hoc/Wrapper"
 
 const App = () => {
     return (
-        <LoginPage/>
+        <Wrapper>
+            <Router>
+                <Switch>
+                    <Route path="/" exact component={null} />
+                    <Route path="/login" exact component={LoginPage} />
+                </Switch>
+            </Router>
+        </Wrapper>
     )
 }
 

@@ -19,7 +19,7 @@ class LoginPage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            login: true,
+            login: false,
             isLoading: false,
         };
     }
@@ -27,6 +27,8 @@ class LoginPage extends React.Component {
 
 
     render() {
+        console.log("Render Login")
+        console.log(this.state)
         return (
             <Wrapper>
                 <Loader isLoading={this.state.isLoading}></Loader>
@@ -57,6 +59,7 @@ class LoginPage extends React.Component {
             ...this.state,
             login: !this.state.login
         })
+        console.log(this.state)
     }
 
     sleep = (milliseconds) => {
