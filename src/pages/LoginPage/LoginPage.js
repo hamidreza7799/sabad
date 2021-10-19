@@ -11,7 +11,7 @@ import { styled } from "@mui/system"
 import Loader from '../../components/UI/Loader/Loader'
 import Wrapper from "../../hoc/Wrapper";
 import MessageDialog from "../../components/UI/Dialog/MessageDialog/MessageDialog"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import MessageSnackbar from "../../components/UI/Snackbar/MessageSnackbar/MessageSnackbar"
 
 class LoginPage extends React.Component {
 
@@ -27,10 +27,9 @@ class LoginPage extends React.Component {
 
 
     render() {
-        console.log("Render Login")
-        console.log(this.state)
         return (
             <Wrapper>
+                <MessageSnackbar isOpen={true} messageType={"success"} messageText={"عملیات موفقیت‌آمیز بود"} />
                 <Loader isLoading={this.state.isLoading}></Loader>
                 <div className="login">
                     <div className={`sidebar-container  ${this.state.login ? 'sidebar-container--left' : 'sidebar-container--right'}`}></div>
@@ -59,7 +58,6 @@ class LoginPage extends React.Component {
             ...this.state,
             login: !this.state.login
         })
-        console.log(this.state)
     }
 
     sleep = (milliseconds) => {
