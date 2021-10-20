@@ -8,32 +8,20 @@ import RTL from "../../../../hoc/RTL/RTL"
 import "./MessageDialog.css"
 
 class MessageDialog extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            isOpen: props.isOpen,
-        }
-    }
-
-    closeDialogHandle = () => {
-        this.setState({
-            isOpen: false
-        })
-    }
 
     render() {
         return (
             <RTL>
                 <Backdrop
                     sx={{ color: '#fff', zIndex: 100 }}
-                    open={this.state.isOpen}
-                    onClick={this.closeDialogHandle}
+                    open={this.props.isOpen}
+                    onClick={this.props.closeDialog}
                 >
                     <Dialog
-                        open={this.state.isOpen}
+                        open={this.props.isOpen}
                         TransitionComponent={DialogTransition}
                         keepMounted
-                        onClose={this.closeDialogHandle}
+                        onClose={this.props.closeDialog}
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
                         scroll={"body"}
