@@ -26,7 +26,7 @@
     "react-scripts": "4.0.3",
     "styles": "^0.2.1",
     "stylis": "^4.0.10",
-    "stylis-plugin-rtl": "^2.1.0",
+    "stylis-plugin-rtl": "^2.1.1",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
