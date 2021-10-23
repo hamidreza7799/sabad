@@ -1,19 +1,13 @@
 import React from 'react'
 import Wrapper from '../../hoc/Wrapper'
 import RTL from '../../hoc/RTL/RTL'
-
-import { styled, alpha } from '@mui/material/styles';
+import HomeContext from '../../context/HomeContext'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -23,6 +17,8 @@ import AccountInfo from './AccountInfo/AccountInfo'
 import './AppBar.css'
 
 class SabadAppBar extends React.Component {
+
+    static contextType = HomeContext
 
     constructor(props) {
         super(props)
@@ -36,14 +32,12 @@ class SabadAppBar extends React.Component {
             accountInfoIsOpen: true,
             accountInfoAnchorEl: event.currentTarget
         })
-        console.log(this.state)
     };
     closeAccountInfoHandler = () => {
         this.setState({
             accountInfoIsOpen: false,
             accountInfoAnchorEl: null
         })
-        console.log(this.state)
     };
 
     render() {
@@ -60,7 +54,7 @@ class SabadAppBar extends React.Component {
                                     aria-label="open drawer"
                                     sx={{ mr: 2 }}
                                 >
-                                    <MenuIcon />
+                                    <MenuIcon onClick={this.context.openDrawerHandler}/>
                                 </IconButton>
                                 <Box sx={{ flexGrow: 1 }} />
                                 <Box sx={{ display: { xs: 'none', md: 'flex', marginRight: '1%', justifyContent: 'space-evenly', width: '12%' } }}>
@@ -110,7 +104,7 @@ class SabadAppBar extends React.Component {
                         open={this.state.accountInfoIsOpen}
                         handleClose={this.closeAccountInfoHandler}
                         accountUsername={"Hamidreza7799"}
-                        ></AccountInfo>
+                    ></AccountInfo>
                 </RTL>
             </Wrapper>
         )

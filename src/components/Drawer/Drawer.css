@@ -1,0 +1,6 @@
+.list-item-text {
+    display: flex;
+    justify-content: start;
+    font-weight: bold;
+    font-size: x-large;
+}
