@@ -11,4 +11,7 @@ const UserContext = React.createContext({
     password: ''
 })
 
+
+export const UserContextProvider = UserContext.Provider
+export const UserContextConsumer = UserContext.Consumer
 export default UserContext
