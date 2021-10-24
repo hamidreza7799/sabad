@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Wrapper from '../../hoc/Wrapper'
 import RTL from '../../hoc/RTL/RTL'
-import HomeContext from '../../context/HomeContext'
-import AppBar from '@mui/material/AppBar';
+import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -13,102 +12,112 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import AccountInfo from './AccountInfo/AccountInfo'
-
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
 import './AppBar.css'
 
-class SabadAppBar extends React.Component {
+const drawerWidth = 240
+const styles = makeStyles((theme) => ({
+    appBar: {
+        zIndex: theme.zIndex.drawer + 1,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+    },
+    appBarShift: {
+        marginRight: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    },
+}))
 
-    static contextType = HomeContext
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            accountInfoAnchorEl: null,
-            accountInfoIsOpen: false
-        }
-    }
-    openAccountInfoHandler = (event) => {
-        this.setState({
-            accountInfoIsOpen: true,
-            accountInfoAnchorEl: event.currentTarget
-        })
+export default function AppBar(props) {
+
+    const classes = styles()
+    const [accountInfoAnchorEl, setAccountInfoAnchorEl] = useState(null)
+    const [accountInfoIsOpen, setAccountInfoIsOpen] = useState(false)
+
+    const openAccountInfoHandler = (event) => {
+        setAccountInfoAnchorEl(event.currentTarget)
+        setAccountInfoIsOpen(true)
     };
-    closeAccountInfoHandler = () => {
-        this.setState({
-            accountInfoIsOpen: false,
-            accountInfoAnchorEl: null
-        })
+
+    const closeAccountInfoHandler = () => {
+        setAccountInfoAnchorEl(null)
+        setAccountInfoIsOpen(false)
     };
 
-    render() {
-        return (
-            <Wrapper>
-                <RTL>
-                    <Box sx={{ flexGrow: 1 }}>
-                        <AppBar position="static" dir='rtl' >
-                            <Toolbar>
+    return (
+        <Wrapper>
+            <RTL>
+                <Box sx={{ flexGrow: 1, }}>
+                    <MuiAppBar position="fixed" dir='rtl' className={props.drawerIsOpen ? classes.appBarShift : classes.appBar}>
+                        <Toolbar>
+                            <IconButton
+                                size="large"
+                                edge="start"
+                                color="inherit"
+                                aria-label="open drawer"
+                                onClick={props.openDrawerHandler}
+                                sx={{ mr: 2 }}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Box sx={{ flexGrow: 1 }} />
+                            <Box sx={{ display: { xs: 'none', md: 'flex', marginRight: '1%', justifyContent: 'space-evenly', width: '12%' } }}>
+                                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                                    <Badge badgeContent={0} color="error">
+                                        <MailIcon />
+                                    </Badge>
+                                </IconButton>
                                 <IconButton
                                     size="large"
-                                    edge="start"
+                                    aria-label="show 17 new notifications"
                                     color="inherit"
-                                    aria-label="open drawer"
-                                    sx={{ mr: 2 }}
                                 >
-                                    <MenuIcon onClick={this.context.openDrawerHandler}/>
+                                    <Badge badgeContent={0} color="error">
+                                        <NotificationsIcon />
+                                    </Badge>
                                 </IconButton>
-                                <Box sx={{ flexGrow: 1 }} />
-                                <Box sx={{ display: { xs: 'none', md: 'flex', marginRight: '1%', justifyContent: 'space-evenly', width: '12%' } }}>
-                                    <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                                        <Badge badgeContent={0} color="error">
-                                            <MailIcon />
-                                        </Badge>
-                                    </IconButton>
-                                    <IconButton
-                                        size="large"
-                                        aria-label="show 17 new notifications"
-                                        color="inherit"
-                                    >
-                                        <Badge badgeContent={0} color="error">
-                                            <NotificationsIcon />
-                                        </Badge>
-                                    </IconButton>
-                                    <IconButton
-                                        size="large"
-                                        edge="end"
-                                        aria-label="account of current user"
-                                        // aria-controls={menuId}
-                                        aria-haspopup="true"
-                                        onClick={this.openAccountInfoHandler}
-                                        color="inherit"
-                                    >
-                                        <AccountCircle />
-                                    </IconButton>
-                                </Box>
-                                <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                                    <IconButton
-                                        size="large"
-                                        aria-label="show more"
-                                        // aria-controls={mobileMenuId}
-                                        aria-haspopup="true"
-                                        // onClick={handleMobileMenuOpen}
-                                        color="inherit"
-                                    >
-                                        <MoreIcon />
-                                    </IconButton>
-                                </Box>
-                            </Toolbar>
-                        </AppBar>
-                    </Box>
-                    <AccountInfo
-                        anchorEl={this.state.accountInfoAnchorEl}
-                        open={this.state.accountInfoIsOpen}
-                        handleClose={this.closeAccountInfoHandler}
-                        accountUsername={"Hamidreza7799"}
-                    ></AccountInfo>
-                </RTL>
-            </Wrapper>
-        )
-    }
+                                <IconButton
+                                    size="large"
+                                    edge="end"
+                                    aria-label="account of current user"
+                                    // aria-controls={menuId}
+                                    aria-haspopup="true"
+                                    onClick={openAccountInfoHandler}
+                                    color="inherit"
+                                >
+                                    <AccountCircle />
+                                </IconButton>
+                            </Box>
+                            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                                <IconButton
+                                    size="large"
+                                    aria-label="show more"
+                                    // aria-controls={mobileMenuId}
+                                    aria-haspopup="true"
+                                    // onClick={handleMobileMenuOpen}
+                                    color="inherit"
+                                >
+                                    <MoreIcon />
+                                </IconButton>
+                            </Box>
+                        </Toolbar>
+                    </MuiAppBar>
+                </Box>
+                <AccountInfo
+                    anchorEl={accountInfoAnchorEl}
+                    open={accountInfoIsOpen}
+                    handleClose={closeAccountInfoHandler}
+                    accountUsername={"Hamidreza7799"}
+                ></AccountInfo>
+            </RTL>
+        </Wrapper>
+    )
 }
-
-export default SabadAppBar

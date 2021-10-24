@@ -1,17 +1,17 @@
 import React from "react"
 import Wrapper from "../../hoc/Wrapper"
-import SabadAppBar from "../../components/AppBar/AppBar"
+import AppBar from "../../components/AppBar/AppBar"
 import SabadDrawer from "../../components/Drawer/Drawer"
+import Box from '@mui/material/Box';
 import './HomePage.css'
 import HomeContext from "../../context/HomeContext"
-
 
 class HomePage extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            drawerIsOpen: false
+            drawerIsOpen: true
         }
     }
 
@@ -35,11 +35,13 @@ class HomePage extends React.Component {
             <HomeContext.Provider value={{
                 drawerIsOpen: this.state.drawerIsOpen,
                 openDrawerHandler: this.openDrawerHandler,
-                closeDrawerInfoHandler: this.closeDrawerHandler
+                closeDrawerHandler: this.closeDrawerHandler
             }}>
                 <Wrapper>
-                    <SabadAppBar />
-                    <SabadDrawer />
+                    <Box sx={{ display: 'flex' }}>
+                        <AppBar drawerIsOpen={this.state.drawerIsOpen} openDrawerHandler={this.openDrawerHandler} />
+                        <SabadDrawer drawerIsOpen={this.state.drawerIsOpen} openDrawerHandler={this.openDrawerHandler} closeDrawerHandler={this.closeDrawerHandler} />
+                    </Box>
                 </Wrapper>
             </HomeContext.Provider>
         )
