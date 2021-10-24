@@ -13,6 +13,10 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import RTL from '../../hoc/RTL/RTL'
 import HomeContext from '../../context/HomeContext';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import HomeIcon from '@mui/icons-material/Home';
+import InfoIcon from '@mui/icons-material/Info';
+import { Link } from 'react-router-dom'
 
 const drawerWidth = 240;
 
@@ -67,6 +71,30 @@ export default class SabadDrawer extends React.Component {
 
     static contextType = HomeContext
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            drawerButtons: [
+                {
+                    title: "صفحه اصلی",
+                    link: "/home",
+                    icon: <HomeIcon fontSize='large' />
+                },
+                {
+                    title: "اطلاعات",
+                    link: "/info",
+                    icon: <InfoIcon fontSize='large' />
+                },
+                {
+                    title: "پروفایل",
+                    link: "/profile",
+                    icon: <AccountCircleIcon fontSize='large' />
+                },
+
+            ]
+        }
+    }
+
     render() {
         return (
             <RTL>
@@ -79,13 +107,15 @@ export default class SabadDrawer extends React.Component {
                         </DrawerHeader>
                         <Divider />
                         <List>
-                            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                                <ListItem button key={text} dir='rtl'>
-                                    <ListItemIcon>
-                                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                    </ListItemIcon>
-                                    <ListItemText primary={text} />
-                                </ListItem>
+                            {this.state.drawerButtons.map((button, index) => (
+                                <Link to={`${button.link}`} style={{textDecoration: 'none',}}>
+                                    <ListItem button key={button.title} dir='rtl'>
+                                        <ListItemIcon>
+                                            {button.icon}
+                                        </ListItemIcon>
+                                        <ListItemText primary={button.title} />
+                                    </ListItem>
+                                </Link>
                             ))}
                         </List>
                     </Drawer>
