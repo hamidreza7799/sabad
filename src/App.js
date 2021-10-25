@@ -1,6 +1,6 @@
 import React from "react"
 import LoginPage from "./pages/LoginPage/LoginPage"
-import MainPage from "./pages/HomePage/MainPage";
+import MainPage from "./pages/MainPage/MainPage";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Wrapper from "./hoc/Wrapper"
 

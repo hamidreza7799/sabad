@@ -18,9 +18,12 @@ const styles = makeStyles((theme) => ({
         overflow: 'auto',
     },
     container: {
-        paddingTop: theme.spacing(4),
+        paddingTop: theme.spacing(8),
         paddingBottom: theme.spacing(4),
         fontFamily: 'IRANSansWeb',
+        maxWidth: '100% !important',
+        display: 'flex !important',
+        justifyContent: "center"
     },
 }))
 

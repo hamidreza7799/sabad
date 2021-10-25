@@ -19,7 +19,7 @@ import './AppBar.css'
 const drawerWidth = 240
 const styles = makeStyles((theme) => ({
     appBar: {
-        zIndex: theme.zIndex.drawer + 1,
+        zIndex: `${theme.zIndex.drawer + 1} !important`,
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -27,7 +27,7 @@ const styles = makeStyles((theme) => ({
     },
     appBarShift: {
         marginRight: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
+        width: `calc(100% - ${drawerWidth}px) !important`,
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
@@ -56,7 +56,7 @@ export default function AppBar(props) {
         <Wrapper>
             <RTL>
                 <Box sx={{ flexGrow: 1, }}>
-                    <MuiAppBar position="fixed" dir='rtl' className={props.drawerIsOpen ? classes.appBarShift : classes.appBar}>
+                    <MuiAppBar position="fixed" dir='rtl' className={`${props.drawerIsOpen ? 'appBarShift' : 'appBar'} ${props.drawerIsOpen ? classes.appBarShift : classes.appBar}`}>
                         <Toolbar>
                             <IconButton
                                 size="large"
@@ -64,6 +64,7 @@ export default function AppBar(props) {
                                 color="inherit"
                                 aria-label="open drawer"
                                 onClick={props.openDrawerHandler}
+                                className={props.drawerIsOpen ? "menuButtonShift": ""}
                                 sx={{ mr: 2 }}
                             >
                                 <MenuIcon />
