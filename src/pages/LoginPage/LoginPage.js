@@ -2,28 +2,24 @@ import React from "react"
 
 import axios from "../../axios"
 import UserContext from "../../context/UserContext"
+import AppContext, { AppContextConsumer, AppContextProvider } from "../../context/AppContext"
 import './LoginPage.css'
 import SigninForm from "../../components/From/SigninForm/SigninForm"
 import CircleImage from "../../components/CircleImage/CircleImage"
-import Loader from '../../components/UI/Loader/Loader'
 import Wrapper from "../../hoc/Wrapper";
-import MessageDialog from "../../components/UI/Dialog/MessageDialog/MessageDialog"
-import MessageSnackbar from "../../components/UI/Snackbar/MessageSnackbar/MessageSnackbar"
+
 
 class LoginPage extends React.Component {
 
+    static contextType = AppContext
 
     constructor(props) {
         super(props)
         this.state = {
             login: false,
-            isLoading: false,
-            messageDialogIsOpen: false,
-            messageDialogType: '',
-            messageDialogText: '',
             isAuth: false,
             token: '',
-            pk: 0, 
+            pk: 0,
             firstName: '',
             lastName: '',
             username: '',
@@ -31,8 +27,6 @@ class LoginPage extends React.Component {
             password: ''
         };
     }
-
-
 
     render() {
         return (
@@ -48,9 +42,6 @@ class LoginPage extends React.Component {
             }}
             >
                 <Wrapper>
-                    <MessageDialog isOpen={this.state.messageDialogIsOpen} messageType={this.state.messageDialogType} messageText={this.state.messageDialogText} closeDialog={this.closeDialogHandle}/>
-                    <MessageSnackbar isOpen={false} messageType={"success"} messageText={"عملیات موفقیت‌آمیز بود"} />
-                    <Loader isLoading={this.state.isLoading}></Loader>
                     <div className="login">
                         <div className={`sidebar-container  ${this.state.login ? 'sidebar-container--left' : 'sidebar-container--right'}`}></div>
                         <div className={`login__welcome-back ${this.state.login ? 'login__welcome-back--active' : 'login__welcome-back--inactive'}`}>
@@ -81,31 +72,18 @@ class LoginPage extends React.Component {
         })
     }
 
-    closeDialogHandle = () => {
-        this.setState({
-            ...this.state,
-            messageDialogIsOpen: false
-        })
-    }
-
-
     signinHandler = (form_variables) => {
+        this.context.openLoadingHandler()
         const payload = {
             "username": form_variables.email_username,
             "password": form_variables.password
         }
-
-        this.setState({
-            ...this.state,
-            isLoading: true,
-        })
         axios.post("/api/auth/login/", payload).then((response) => {
             this.setState({
                 ...this.state,
-                isLoading: false,
                 isAuth: true,
                 token: response.data.token,
-                pk: response.data.user.pk, 
+                pk: response.data.user.pk,
                 firstName: response.data.user.first_name,
                 lastName: response.data.user.last_name,
                 username: response.data.user.username,
@@ -115,16 +93,14 @@ class LoginPage extends React.Component {
             })
             window.location.href = "/Dashboard";
         }).catch((error) => {
-            this.setState({
-                ...this.state,
-                isLoading: false,
-                messageDialogIsOpen: true,
-                messageDialogType: 'error',
-                messageDialogText: ''
+            this.context.openMessageDialogHandler({
+                messageType: "error",
+                messageText: ''
             })
             console.log(error.response?.data)
+        }).finally(() => {
+            this.context.closeLoadingHandler()
         })
-
     }
 }
 

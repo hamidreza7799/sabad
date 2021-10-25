@@ -15,6 +15,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { styled } from '@mui/material/styles';
 import Slider from "@mui/material/Slider";
+import UserContext from '../../context/UserContext'
 import './Table.css'
 
 const StyledTableCell = styled(MuiTableCell)(({ theme }) => ({
@@ -81,7 +82,7 @@ function Row(props) {
                             {
                                 value: 50,
                                 label: "50%"
-                              },
+                            },
                         ]}
                         disabled={true}
                     />
@@ -152,53 +153,67 @@ const rows = [
 
 Row.propTypes = {
     row: PropTypes.shape({
-      calories: PropTypes.number.isRequired,
-      carbs: PropTypes.number.isRequired,
-      fat: PropTypes.number.isRequired,
-      history: PropTypes.arrayOf(
-        PropTypes.shape({
-          amount: PropTypes.number.isRequired,
-          customerId: PropTypes.string.isRequired,
-          date: PropTypes.string.isRequired,
-        }),
-      ).isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      protein: PropTypes.number.isRequired,
+        calories: PropTypes.number.isRequired,
+        carbs: PropTypes.number.isRequired,
+        fat: PropTypes.number.isRequired,
+        history: PropTypes.arrayOf(
+            PropTypes.shape({
+                amount: PropTypes.number.isRequired,
+                customerId: PropTypes.string.isRequired,
+                date: PropTypes.string.isRequired,
+            }),
+        ).isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        protein: PropTypes.number.isRequired,
     }).isRequired,
-  };
+};
 
 const StyledTableRow = styled(Row)(({ theme }) => ({
     '&:nth-of-type(even)': {
-      backgroundColor: theme.palette.action.hover,
+        backgroundColor: theme.palette.action.hover,
     },
     // hide last border
     '&:last-child td, &:last-child th': {
-      border: 0,
+        border: 0,
     },
-  }));
+}));
 
-export default function Table(props) {
-    return (
-        <MuiTableContainer component={Paper} className={'table-container'}>
-            <MuiTable dir='rtl' aria-label="collapsible table">
-                <MuiTableHead>
-                    <MuiTableRow>
-                        <StyledTableCell align="center" />
-                        <StyledTableCell align="left">نام کارفرما</StyledTableCell>
-                        <StyledTableCell align="left">نام پروژه</StyledTableCell>
-                        <StyledTableCell align="center">تاریخ شروع</StyledTableCell>
-                        <StyledTableCell align="center">تعداد داده</StyledTableCell>
-                        <StyledTableCell align="center">درصد پیشرفت</StyledTableCell>
-                    </MuiTableRow>
-                </MuiTableHead>
-                <MuiTableBody>
-                    {rows.map((row) => (
-                        <Row key={row.name} row={row} />
-                        
-                    ))}
-                </MuiTableBody>
-            </MuiTable>
-        </MuiTableContainer>
-    );
+export default class Table extends React.Component {
+
+    static contextType = UserContext
+
+    constructor(props){
+        super(props)
+    }
+
+    componentDidMount(){
+        
+    }
+
+
+    render() {
+        return (
+            <MuiTableContainer component={Paper} className={'table-container'}>
+                <MuiTable dir='rtl' aria-label="collapsible table">
+                    <MuiTableHead>
+                        <MuiTableRow>
+                            <StyledTableCell align="center" />
+                            <StyledTableCell align="left">نام کارفرما</StyledTableCell>
+                            <StyledTableCell align="left">نام پروژه</StyledTableCell>
+                            <StyledTableCell align="center">تاریخ شروع</StyledTableCell>
+                            <StyledTableCell align="center">تعداد داده</StyledTableCell>
+                            <StyledTableCell align="center">درصد پیشرفت</StyledTableCell>
+                        </MuiTableRow>
+                    </MuiTableHead>
+                    <MuiTableBody>
+                        {rows.map((row) => (
+                            <Row key={row.name} row={row} />
+
+                        ))}
+                    </MuiTableBody>
+                </MuiTable>
+            </MuiTableContainer>
+        );
+    }
 }
