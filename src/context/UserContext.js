@@ -8,7 +8,8 @@ const UserContext = React.createContext({
     lastName: '',
     username: '',
     email: '',
-    password: ''
+    password: '',
+    setUserInformation: () => {}
 })
 
 

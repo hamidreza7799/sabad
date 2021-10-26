@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -15,8 +15,10 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { styled } from '@mui/material/styles';
 import Slider from "@mui/material/Slider";
-import UserContext from '../../context/UserContext'
+import UserContext, { UserContextConsumer } from '../../context/UserContext'
+import AppContext from '../../context/AppContext'
 import './Table.css'
+import axios from '../../axios';
 
 const StyledTableCell = styled(MuiTableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -179,41 +181,56 @@ const StyledTableRow = styled(Row)(({ theme }) => ({
     },
 }));
 
-export default class Table extends React.Component {
+export default function Table(props) {
+    const [getTableData, setGetTableData] = useState(false)
+    const user = useContext(UserContext)
+    const app = useContext(AppContext)
+    axios.defaults.headers.common['Authorization'] = user.token
 
-    static contextType = UserContext
+    useEffect(() => {
+        if (!getTableData) {
+            setGetTableData(true)
+            axios.defaults.headers.common['Authorization'] = user.token
+            app.openLoadingHandler()
+            axios.get("/api/annotator/tasks/").then((response) => {
 
-    constructor(props){
-        super(props)
+            }).catch((error) => {
+                app.openMessageDialogHandler({
+                    messageType: "error",
+                    messageText: ''
+                })
+                console.log(error.response?.data)
+            }).finally(() => {
+                app.closeLoadingHandler()
+            })
+        }
+    })
+
+
+    const show = () => {
+        console.log(user)
     }
 
-    componentDidMount(){
-        
-    }
+    return (
+        <MuiTableContainer component={Paper} className={'table-container'}>
+            <MuiTable dir='rtl' aria-label="collapsible table">
+                <MuiTableHead onClick={show}>
+                    <MuiTableRow>
+                        <StyledTableCell align="center" />
+                        <StyledTableCell align="left">نام کارفرما</StyledTableCell>
+                        <StyledTableCell align="left">نام پروژه</StyledTableCell>
+                        <StyledTableCell align="center">تاریخ شروع</StyledTableCell>
+                        <StyledTableCell align="center">تعداد داده</StyledTableCell>
+                        <StyledTableCell align="center">درصد پیشرفت</StyledTableCell>
+                    </MuiTableRow>
+                </MuiTableHead>
+                <MuiTableBody>
+                    {rows.map((row) => (
+                        <Row key={row.name} row={row} />
 
-
-    render() {
-        return (
-            <MuiTableContainer component={Paper} className={'table-container'}>
-                <MuiTable dir='rtl' aria-label="collapsible table">
-                    <MuiTableHead>
-                        <MuiTableRow>
-                            <StyledTableCell align="center" />
-                            <StyledTableCell align="left">نام کارفرما</StyledTableCell>
-                            <StyledTableCell align="left">نام پروژه</StyledTableCell>
-                            <StyledTableCell align="center">تاریخ شروع</StyledTableCell>
-                            <StyledTableCell align="center">تعداد داده</StyledTableCell>
-                            <StyledTableCell align="center">درصد پیشرفت</StyledTableCell>
-                        </MuiTableRow>
-                    </MuiTableHead>
-                    <MuiTableBody>
-                        {rows.map((row) => (
-                            <Row key={row.name} row={row} />
-
-                        ))}
-                    </MuiTableBody>
-                </MuiTable>
-            </MuiTableContainer>
-        );
-    }
+                    ))}
+                </MuiTableBody>
+            </MuiTable>
+        </MuiTableContainer>
+    );
 }

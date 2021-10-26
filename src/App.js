@@ -7,6 +7,7 @@ import MessageDialog from "./components/UI/Dialog/MessageDialog/MessageDialog"
 import MessageSnackbar from "./components/UI/Snackbar/MessageSnackbar/MessageSnackbar"
 import Loader from './components/UI/Loader/Loader'
 import { AppContextProvider } from "./context/AppContext";
+import { UserContextProvider } from "./context/UserContext";
 
 class App extends React.Component {
     constructor(props) {
@@ -19,6 +20,16 @@ class App extends React.Component {
             messageSnackbarIsOpen: false,
             messageSnackbarType: '',
             messageSnackbarText: '',
+            user: {
+                isAuth: false,
+                token: '',
+                pk: 0,
+                firstName: '',
+                lastName: '',
+                username: '',
+                email: '',
+                password: ''
+            }
         }
     }
 
@@ -68,6 +79,23 @@ class App extends React.Component {
         })
     }
 
+    setUserInformation = (props) => {
+        this.setState({
+            ...this.state,
+            user: {
+                isAuth: props.isAuth,
+                token: props.token,
+                pk: props.pk,
+                firstName: props.firstName,
+                lastName: props.lastName,
+                username: props.username,
+                email: props.email,
+                password: props.password
+            }
+        })
+        console.log(this.state)
+    }
+
     render() {
         return (
             <AppContextProvider value={{
@@ -77,27 +105,40 @@ class App extends React.Component {
                 messageDialogIsOpen: this.state.messageDialogIsOpen,
                 messageDialogType: this.state.messageDialogType,
                 messageDialogText: this.state.messageDialogText,
-                openMessageDialogHandler: (props) => {this.openMessageDialogHandler(props)},
+                openMessageDialogHandler: (props) => { this.openMessageDialogHandler(props) },
                 closeMessageDialogHandler: this.closeMessageDialogHandler,
                 messageSnackbarIsOpen: this.state.messageSnackbarIsOpen,
                 messageSnackbarType: this.state.messageSnackbarType,
                 messageSnackbarText: this.state.messageSnackbarText,
-                openMessageSnackbarHandler: (props) => {this.openMessageSnackbarHandler(props)},
+                openMessageSnackbarHandler: (props) => { this.openMessageSnackbarHandler(props) },
                 closeMessageSnackbarHandler: this.closeMessageSnackbarHandler,
             }}>
-                <Wrapper>
-                    <MessageDialog isOpen={this.state.messageDialogIsOpen} messageType={this.state.messageDialogType} messageText={this.state.messageDialogText} closeDialog={this.closeMessageDialogHandler} />
-                    <MessageSnackbar isOpen={this.state.messageSnackbarIsOpen} messageType={this.state.messageSnackbarType} messageText={this.state.messageSnackbarText} />
-                    <Loader isLoading={this.state.isLoading}></Loader>
-                    <Router>
-                        <Switch>
-                            <Route path="/" exact component={null} />
-                            <Route path="/login" exact component={LoginPage} />
-                            <Route path="/home" exact component={MainPage} />
-                        </Switch>
-                    </Router>
-                </Wrapper>
+                <UserContextProvider value={{
+                    isAuth: this.state.user.isAuth,
+                    token: this.state.user.token,
+                    pk: this.state.user.pk,
+                    firstName: this.state.user.firstName,
+                    lastName: this.state.user.lastName,
+                    username: this.state.user.username,
+                    email: this.state.user.email,
+                    password: this.state.user.password,
+                    setUserInformation: (props) => { this.setUserInformation(props) }
+                }}>
+                    <Wrapper>
+                        <MessageDialog isOpen={this.state.messageDialogIsOpen} messageType={this.state.messageDialogType} messageText={this.state.messageDialogText} closeDialog={this.closeMessageDialogHandler} />
+                        <MessageSnackbar isOpen={this.state.messageSnackbarIsOpen} messageType={this.state.messageSnackbarType} messageText={this.state.messageSnackbarText} />
+                        <Loader isLoading={this.state.isLoading}></Loader>
+                        <Router>
+                            <Switch>
+                                <Route path="/" exact component={null} />
+                                <Route path="/login" exact component={LoginPage} />
+                                <Route path="/home" exact component={MainPage} />
+                            </Switch>
+                        </Router>
+                    </Wrapper>
+                </UserContextProvider >
             </AppContextProvider>
+
 
         )
     }
