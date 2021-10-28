@@ -19,7 +19,7 @@ import UserContext, { UserContextConsumer } from '../../context/UserContext'
 import AppContext from '../../context/AppContext'
 import './Table.css'
 import axios from '../../axios';
-import { ProgressBar } from 'react-bootstrap'
+import ProgressBar from "./Progress/Progress"
 
 const StyledTableCell = styled(MuiTableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -79,7 +79,7 @@ function Row(props) {
                 <MuiTableCell align="center">{row.carbs}</MuiTableCell>
                 <MuiTableCell align="center">
                     <div>
-                    <ProgressBar animated variant="success" now={50} label={`${50}%`}/>
+                    <ProgressBar value={50} />
                     </div>
                 </MuiTableCell>
             </MuiTableRow>
