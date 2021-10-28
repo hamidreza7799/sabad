@@ -12,20 +12,20 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     },
     [`& .${linearProgressClasses.bar}`]: {
         borderRadius: 5,
-        backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8',
+        backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#1a90ff',
     },
 }));
 
 function LinearProgressWithLabel(props) {
     return (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box sx={{ minWidth: 35 }}>
+            {/* <Box sx={{ minWidth: 35 }}>
                 <Typography variant="body2" color="text.secondary">{`${Math.round(
                     props.value,
                 )}%`}</Typography>
-            </Box>
+            </Box> */}
             <Box sx={{ width: '100%', mr: 1 }}>
-                <BorderLinearProgress variant="determinate" value={50} />
+                <BorderLinearProgress variant="determinate" value={props.value} />
             </Box>
         </Box>
     );

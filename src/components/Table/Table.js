@@ -20,6 +20,7 @@ import AppContext from '../../context/AppContext'
 import './Table.css'
 import axios from '../../axios';
 import ProgressBar from "./Progress/Progress"
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const StyledTableCell = styled(MuiTableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -81,6 +82,11 @@ function Row(props) {
                     <div>
                     <ProgressBar value={50} />
                     </div>
+                </MuiTableCell>
+                <MuiTableCell align="center">
+                    <IconButton>
+                        <VisibilityIcon className={"color-error"} />
+                    </IconButton>
                 </MuiTableCell>
             </MuiTableRow>
             <MuiTableRow>
@@ -210,11 +216,12 @@ export default function Table(props) {
                 <MuiTableHead onClick={show}>
                     <MuiTableRow>
                         <StyledTableCell align="center" />
-                        <StyledTableCell align="left">نام کارفرما</StyledTableCell>
-                        <StyledTableCell align="left">نام پروژه</StyledTableCell>
-                        <StyledTableCell align="center">تاریخ شروع</StyledTableCell>
-                        <StyledTableCell align="center">تعداد داده</StyledTableCell>
-                        <StyledTableCell align="center">درصد پیشرفت</StyledTableCell>
+                        <StyledTableCell align="left" className={"table-header-cell"} >نام کارفرما</StyledTableCell>
+                        <StyledTableCell align="left" className={"table-header-cell"} >نام پروژه</StyledTableCell>
+                        <StyledTableCell align="center" className={"table-header-cell"} >تاریخ شروع</StyledTableCell>
+                        <StyledTableCell align="center" className={"table-header-cell"} >تعداد داده</StyledTableCell>
+                        <StyledTableCell align="center" className={"table-header-cell"} >درصد پیشرفت</StyledTableCell>
+                        <StyledTableCell align="center" className={"table-header-cell"} >مشاهده پروژه</StyledTableCell>
                     </MuiTableRow>
                 </MuiTableHead>
                 <MuiTableBody>

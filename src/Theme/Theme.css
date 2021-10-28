@@ -16,3 +16,12 @@
 .dark-blue{
     color: #3f407d !important;
 }
+
+.table-header-cell{
+    font-weight: bold !important;
+    font-size: 0.9rem !important;
+}
+
+.color-error{
+    color: red !important;
+}
