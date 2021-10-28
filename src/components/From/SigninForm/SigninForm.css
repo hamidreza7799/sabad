@@ -9,3 +9,11 @@
 .button{
     font-family: "Vazir";
 }
+
+.login-button{
+    box-shadow: rgb(63 64 125 / 24%) 0px 8px 16px 0px;
+}
+
+.signup-button{
+    box-shadow: rgb(63 64 125 / 24%) 0px 8px 16px 0px;
+}

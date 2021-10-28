@@ -10,11 +10,11 @@ const SigninButton = styled(Button)({
     color: '#dadada',
     margin: '30px 0px',
     lineHeight: 1.5,
-    backgroundColor: '#ff5959',
-    borderColor: '#dadada',
+    backgroundColor: '#3f407d',
+    borderColor: '#3f407d',
     '&:hover': {
-      backgroundColor: '#ff5959',
-      borderColor: '#dadada',
+      backgroundColor: '#3f407d',
+      borderColor: '#3f407d',
       border: '2px solid',
     },
   });

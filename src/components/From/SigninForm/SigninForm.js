@@ -4,6 +4,7 @@ import { ValidatorForm } from "react-material-ui-form-validator"
 import { IconButton, Grid, Button, Checkbox, FormControlLabel } from "@mui/material"
 import { InputAdornment } from "@mui/material"
 import { AccountCircle, Visibility, VisibilityOff, } from "@mui/icons-material"
+import Divider from '@mui/material/Divider';
 import LoginIcon from '@mui/icons-material/Login'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import GoogleIcon from '@mui/icons-material/Google';
@@ -113,8 +114,8 @@ class SigninForm extends React.Component {
                                 />
                             </Grid>
                             <Grid item container justifyContent="space-between">
-                                <Button href="#text-buttons" color="error">فراموشی رمز عبور؟</Button>
-                                <FormControlLabel control={<Checkbox defaultChecked color="error" />} label="مرا به خاطر بسپار" labelPlacement="start" sx={{
+                                <Button href="#text-buttons" className={"dark-blue"}>فراموشی رمز عبور؟</Button>
+                                <FormControlLabel control={<Checkbox defaultChecked className={"dark-blue"} />} label="مرا به خاطر بسپار" labelPlacement="start" sx={{
                                     marginLeft: "-2%"
                                 }} />
                             </Grid>
@@ -123,10 +124,10 @@ class SigninForm extends React.Component {
                                     <Button
                                         type="submit"
                                         variant="contained"
-                                        color="error"
+                                        className={"login-button"}
                                         sx={{
                                             fontWeight: "bold",
-
+                                            backgroundColor: "#3f407d"
                                         }}
                                         onClick={() => { this.props.signinHandler(this.state) }}
                                         fullWidth
@@ -140,12 +141,15 @@ class SigninForm extends React.Component {
                                     <Button
                                         type="submit"
                                         variant="outlined"
-                                        color="error"
+                                        className={"signup-button"}
                                         sx={{
+                                            color: "#3f407d",
                                             fontWeight: "bold",
                                             border: "2px solid",
+                                            borderColor: "#3f407d",
                                             '&:hover': {
                                                 border: '2px solid',
+                                                borderColor: "#3f407d"
                                             },
 
                                         }}
@@ -158,7 +162,12 @@ class SigninForm extends React.Component {
                                     </Button>
                                 </Grid>
                             </Grid>
+  
                             <Grid item container justifyContent="center" marginTop="5vh">
+                            <Divider sx={{
+                                width: "100%",
+
+                            }}/>
                                 <Grid xs={6} item container justifyContent="space-evenly">
                                     <Grid item>
                                         <IconButton aria-label="google-icon" size="large">

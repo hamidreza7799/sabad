@@ -7,6 +7,7 @@ import './LoginPage.css'
 import SigninForm from "../../components/From/SigninForm/SigninForm"
 import CircleImage from "../../components/CircleImage/CircleImage"
 import Wrapper from "../../hoc/Wrapper";
+import loginWallPaper from '../../assets/images/login_wallpaper.jpg';
 
 
 function LoginPage(props) {
@@ -51,7 +52,9 @@ function LoginPage(props) {
     return (
         <Wrapper>
             <div className="login">
-                <div className={`sidebar-container  ${login ? 'sidebar-container--left' : 'sidebar-container--right'}`}></div>
+                <div className={`sidebar-container  ${login ? 'sidebar-container--left' : 'sidebar-container--right'}`}>
+                    <img src={loginWallPaper}></img>
+                </div>
                 <div className={`login__welcome-back ${login ? 'login__welcome-back--active' : 'login__welcome-back--inactive'}`}>
                 </div>
                 <div className={`login__hello-container ${!login ? 'login__hello-container--active' : 'login__hello-container--inactive'}`}>
