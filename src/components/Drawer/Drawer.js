@@ -11,6 +11,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import CloseIcon from '@mui/icons-material/Close';
 import RTL from '../../hoc/RTL/RTL'
 import HomeContext from '../../context/HomeContext';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -104,7 +105,9 @@ export default class SabadDrawer extends React.Component {
                     <Drawer variant="permanent" open={this.props.drawerIsOpen} anchor={'left'}>
                         <DrawerHeader>
                             <IconButton onClick={this.props.closeDrawerHandler} open={this.props.drawerIsOpen}>
-                                <ChevronRightIcon />
+                                <CloseIcon sx={{
+                                    fontSize: "1.85rem"
+                                }}/>
                             </IconButton>
                         </DrawerHeader>
                         <Divider />

@@ -116,7 +116,7 @@ body{
 
 .login__login-container {
     position: absolute;
-    transition: all 0.7s ease-in-out;
+    transition: all 0.8s ease-out;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -204,7 +204,7 @@ body{
     flex-direction: column;
 }
 .sidebar-container--left {
-    transform: translateX(0px);
+    transform: translateX(4%);
 }
 .sidebar-container--right {
     transform: translateX(145%);
