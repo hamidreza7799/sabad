@@ -7,7 +7,7 @@ import './LoginPage.css'
 import SigninForm from "../../components/From/SigninForm/SigninForm"
 import CircleImage from "../../components/CircleImage/CircleImage"
 import Wrapper from "../../hoc/Wrapper";
-import loginWallPaper from '../../assets/images/login_wallpaper.jpg';
+import loginWallPaper from '../../assets/images/illustration_login.png';
 
 
 function LoginPage(props) {
@@ -53,6 +53,9 @@ function LoginPage(props) {
         <Wrapper>
             <div className="login">
                 <div className={`sidebar-container  ${login ? 'sidebar-container--left' : 'sidebar-container--right'}`}>
+                    <h1 style={{
+                        marginBottom: "5vh"
+                    }}>ورود به حساب کاربری</h1>
                     <img src={loginWallPaper}></img>
                 </div>
                 <div className={`login__welcome-back ${login ? 'login__welcome-back--active' : 'login__welcome-back--inactive'}`}>
