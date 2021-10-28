@@ -1,3 +1,10 @@
 .table-container{
     width: 85% !important;
+    border-radius: 0.5% !important;
+    box-shadow: 1px 1px 5px 5px #888888 !important;
+}
+
+.colorful-row{
+    background-color: rgba(63, 64, 125, 0.3) !important;
+    
 }

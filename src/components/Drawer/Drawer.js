@@ -17,6 +17,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
 import { Link } from 'react-router-dom'
+import './Drawer.css'
 
 const drawerWidth = 240;
 
@@ -35,9 +36,9 @@ const closedMixin = (theme) => ({
         duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: 'hidden',
-    width: `calc(${theme.spacing(7)} + 1px)`,
+    width: `calc(${theme.spacing(5)} + 1px)`,
     [theme.breakpoints.up('sm')]: {
-        width: `calc(${theme.spacing(9)} + 1px)`,
+        width: `calc(${theme.spacing(8)} + 1px)`,
     },
 });
 
@@ -96,6 +97,7 @@ export default class SabadDrawer extends React.Component {
     }
 
     render() {
+        console.log(window.location.pathname)
         return (
             <RTL>
                 <Box sx={{ display: 'flex' }}>
@@ -109,11 +111,11 @@ export default class SabadDrawer extends React.Component {
                         <List>
                             {this.state.drawerButtons.map((button, index) => (
                                 <Link to={`${button.link}`} style={{textDecoration: 'none',}}>
-                                    <ListItem button key={button.title} dir='rtl'>
-                                        <ListItemIcon>
+                                    <ListItem button key={button.title} dir='rtl' className={`${button.link === window.location.pathname? "dark-blue select-item-border": ""}`}>
+                                        <ListItemIcon className={`${button.link === window.location.pathname? "dark-blue": ""}`}>
                                             {button.icon}
                                         </ListItemIcon>
-                                        <ListItemText primary={button.title} />
+                                        <ListItemText primary={button.title} className={`${button.link === window.location.pathname? "select-item-text": "item-text"}`}/>
                                     </ListItem>
                                 </Link>
                             ))}

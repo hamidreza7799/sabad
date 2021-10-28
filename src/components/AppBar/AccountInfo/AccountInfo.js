@@ -43,7 +43,7 @@ class AccountInfo extends React.Component {
                                 width: 10,
                                 height: 10,
                                 bgcolor: 'background.paper',
-                                transform: 'translateY(-50%) translateX(-500%) rotate(45deg)',
+                                transform: 'translateY(-50%) translateX(-2000%) rotate(45deg)',
                                 zIndex: 0,
                             },
                         },

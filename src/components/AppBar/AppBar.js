@@ -7,8 +7,8 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import AccountInfo from './AccountInfo/AccountInfo'
@@ -56,7 +56,7 @@ export default function AppBar(props) {
         <Wrapper>
             <RTL>
                 <Box sx={{ flexGrow: 1, }}>
-                    <MuiAppBar position="fixed" dir='rtl' className={`${props.drawerIsOpen ? 'appBarShift' : 'appBar'} ${props.drawerIsOpen ? classes.appBarShift : classes.appBar}`}>
+                    <MuiAppBar position="fixed" dir='rtl' className={`app-bar ${props.drawerIsOpen ? 'appBarShift' : 'appBar'} ${props.drawerIsOpen ? classes.appBarShift : classes.appBar}`}>
                         <Toolbar>
                             <IconButton
                                 size="large"
@@ -64,17 +64,24 @@ export default function AppBar(props) {
                                 color="inherit"
                                 aria-label="open drawer"
                                 onClick={props.openDrawerHandler}
-                                className={props.drawerIsOpen ? "menuButtonShift": ""}
+                                className={`${props.drawerIsOpen ? "menuButtonShift": ""}`}
                                 sx={{ mr: 2 }}
                             >
-                                <MenuIcon />
+                                <MenuIcon className={"app-bar-button"} />
                             </IconButton>
                             <Box sx={{ flexGrow: 1 }} />
                             <Box sx={{ display: { xs: 'none', md: 'flex', marginRight: '1%', justifyContent: 'space-evenly', width: '12%' } }}>
-                                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                                    <Badge badgeContent={0} color="error">
-                                        <MailIcon />
-                                    </Badge>
+                            <IconButton
+                                    size="large"
+                                    edge="end"
+                                    aria-label="account of current user"
+                                    // aria-controls={menuId}
+                                    aria-haspopup="true"
+                                    color="inherit"
+                                    // onClick = {openAccountInfoHandler}
+                                    
+                                >
+                                    <AccountCircleIcon className={"app-bar-button"}/>
                                 </IconButton>
                                 <IconButton
                                     size="large"
@@ -82,7 +89,7 @@ export default function AppBar(props) {
                                     color="inherit"
                                 >
                                     <Badge badgeContent={0} color="error">
-                                        <NotificationsIcon />
+                                        <NotificationsIcon className={"app-bar-button"}/>
                                     </Badge>
                                 </IconButton>
                                 <IconButton
@@ -91,10 +98,10 @@ export default function AppBar(props) {
                                     aria-label="account of current user"
                                     // aria-controls={menuId}
                                     aria-haspopup="true"
-                                    onClick={openAccountInfoHandler}
                                     color="inherit"
+                                    className={"rotate180"}
                                 >
-                                    <AccountCircle />
+                                    <ExitToAppIcon className={"app-bar-button"}/>
                                 </IconButton>
                             </Box>
                             <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

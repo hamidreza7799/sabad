@@ -4,3 +4,21 @@
     font-weight: bold;
     font-size: x-large;
 }
+
+.select-item-border{
+    border-left: solid 3px !important;
+}
+
+.item-text span{
+    font-size: 1.005rem !important;
+    line-height: 1.95 !important;
+    font-weight: 700 !important;
+    text-align: right;
+    color: rgba(0, 0, 0, 0.54) !important;
+}
+
+.select-item-text span{
+    font-size: 1.05rem;
+    font-weight: bold;
+    line-height: 1.95 !important;
+}

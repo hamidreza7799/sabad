@@ -19,6 +19,7 @@ import UserContext, { UserContextConsumer } from '../../context/UserContext'
 import AppContext from '../../context/AppContext'
 import './Table.css'
 import axios from '../../axios';
+import { ProgressBar } from 'react-bootstrap'
 
 const StyledTableCell = styled(MuiTableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -59,8 +60,8 @@ function Row(props) {
     const [open, setOpen] = React.useState(false);
 
     return (
-        <React.Fragment>
-            <MuiTableRow key={row.name} sx={{ '& > *': { borderBottom: 'unset' } }}>
+        <React.Fragment >
+            <MuiTableRow key={row.name} sx={{ '& > *': { borderBottom: 'unset' } }} className={props.cssClass}>
                 <MuiTableCell>
                     <IconButton
                         aria-label="expand row"
@@ -77,17 +78,9 @@ function Row(props) {
                 <MuiTableCell align="center">{row.fat}</MuiTableCell>
                 <MuiTableCell align="center">{row.carbs}</MuiTableCell>
                 <MuiTableCell align="center">
-                    <Slider
-                        aria-label="Always visible"
-                        defaultValue={50}
-                        marks={[
-                            {
-                                value: 50,
-                                label: "50%"
-                            },
-                        ]}
-                        disabled={true}
-                    />
+                    <div>
+                    <ProgressBar animated variant="success" now={50} label={`${50}%`}/>
+                    </div>
                 </MuiTableCell>
             </MuiTableRow>
             <MuiTableRow>
@@ -172,7 +165,7 @@ Row.propTypes = {
 };
 
 const StyledTableRow = styled(Row)(({ theme }) => ({
-    '&:nth-of-type(even)': {
+    '&:nth-of-child(even)': {
         backgroundColor: theme.palette.action.hover,
     },
     // hide last border
@@ -187,24 +180,24 @@ export default function Table(props) {
     const app = useContext(AppContext)
     axios.defaults.headers.common['Authorization'] = user.token
 
-    useEffect(() => {
-        if (!getTableData) {
-            setGetTableData(true)
-            axios.defaults.headers.common['Authorization'] = user.token
-            app.openLoadingHandler()
-            axios.get("/api/annotator/tasks/").then((response) => {
+    // useEffect(() => {
+    //     if (!getTableData) {
+    //         setGetTableData(true)
+    //         axios.defaults.headers.common['Authorization'] = user.token
+    //         app.openLoadingHandler()
+    //         axios.get("/api/annotator/tasks/").then((response) => {
 
-            }).catch((error) => {
-                app.openMessageDialogHandler({
-                    messageType: "error",
-                    messageText: ''
-                })
-                console.log(error.response?.data)
-            }).finally(() => {
-                app.closeLoadingHandler()
-            })
-        }
-    })
+    //         }).catch((error) => {
+    //             app.openMessageDialogHandler({
+    //                 messageType: "error",
+    //                 messageText: ''
+    //             })
+    //             console.log(error.response?.data)
+    //         }).finally(() => {
+    //             app.closeLoadingHandler()
+    //         })
+    //     }
+    // })
 
 
     const show = () => {
@@ -225,8 +218,8 @@ export default function Table(props) {
                     </MuiTableRow>
                 </MuiTableHead>
                 <MuiTableBody>
-                    {rows.map((row) => (
-                        <Row key={row.name} row={row} />
+                    {rows.map((row, index) => (
+                        <Row key={row.name} row={row} cssClass={index % 2 === 0 ? "colorful-row" : ""} />
 
                     ))}
                 </MuiTableBody>
