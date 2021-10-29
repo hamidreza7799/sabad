@@ -8,7 +8,11 @@ import './MainPage.css'
 import HomeContext from "../../context/HomeContext"
 import { Container } from "@mui/material"
 import Table from "../../components/Table/Table"
+import Toolbar from '@mui/material/Toolbar';
 import { makeStyles } from '@material-ui/core/styles';
+import ScrollTop from "../../components/ScrollTop/ScrollTop";
+import Fab from '@mui/material/Fab';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
 const styles = makeStyles((theme) => ({
     appBarSpacer: theme.mixins.toolbar,
@@ -18,8 +22,8 @@ const styles = makeStyles((theme) => ({
         overflow: 'auto',
     },
     container: {
-        paddingTop: theme.spacing(8),
-        paddingBottom: theme.spacing(4),
+        paddingTop: "15vh",
+        paddingBottom: "15vh",
         fontFamily: 'IRANSansWeb',
         maxWidth: '100% !important',
         display: 'flex !important',
@@ -39,6 +43,17 @@ function MainPage(props) {
         setDrawerIsOpen(false)
     }
 
+    const scrollTopHandler = (event) => {
+        const anchor = (event.target.ownerDocument || document).querySelector(
+            '#back-to-top-anchor',
+          );
+          if (anchor) {
+            anchor.scrollIntoView({
+              behavior: 'smooth',
+              block: 'center',
+            });
+          }
+    }
 
     return (
         <HomeContext.Provider value={{
@@ -50,6 +65,7 @@ function MainPage(props) {
                 <RTL>
                     <AppBar drawerIsOpen={drawerIsOpen} openDrawerHandler={openDrawerHandler} />
                     <SabadDrawer drawerIsOpen={drawerIsOpen} openDrawerHandler={openDrawerHandler} closeDrawerHandler={closeDrawerHandler} />
+                    {/* <Toolbar id="back-to-top-anchor" /> */}
                     <Router>
                         <main className={classes.content}>
                             <div className={classes.appBarSpacer} />
@@ -68,6 +84,11 @@ function MainPage(props) {
                             </Container>
                         </main>
                     </Router>
+                    {/* <ScrollTop {...props} scrollTopHandler={(event) => {scrollTopHandler(event)}}>
+                        <Fab color="secondary" size="small" aria-label="scroll back to top">
+                            <KeyboardArrowUpIcon />
+                        </Fab>
+                    </ScrollTop> */}
                 </RTL>
             </Wrapper>
         </HomeContext.Provider >
