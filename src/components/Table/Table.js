@@ -21,6 +21,26 @@ import './Table.css'
 import axios from '../../axios';
 import ProgressBar from "./Progress/Progress"
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import Tooltip from '@mui/material/Tooltip';
+import { makeStyles } from '@material-ui/core/styles';
+
+const styles = makeStyles((theme) => ({
+    visibilityIconSuccess: {
+
+        color: theme.palette.success.main
+
+    },
+    visibilityIconWarning: {
+
+        color: theme.palette.warning.main
+
+    },
+    visibilityIconError: {
+
+        color: theme.palette.error.main
+
+    }
+}))
 
 const StyledTableCell = styled(MuiTableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -57,6 +77,7 @@ function createData(name, calories, fat, carbs, protein, price) {
 }
 
 function Row(props) {
+    const classes = styles()
     const { row } = props;
     const [open, setOpen] = React.useState(false);
 
@@ -78,14 +99,14 @@ function Row(props) {
                 <MuiTableCell align="left">{row.calories}</MuiTableCell>
                 <MuiTableCell align="center">{row.fat}</MuiTableCell>
                 <MuiTableCell align="center">{row.carbs}</MuiTableCell>
-                <MuiTableCell align="center">
-                    <div>
-                    <ProgressBar value={50} />
-                    </div>
-                </MuiTableCell>
+                <Tooltip title={"100%"} placement={"right"}>
+                    <MuiTableCell align="center">
+                        <ProgressBar value={100} />
+                    </MuiTableCell>
+                </Tooltip>
                 <MuiTableCell align="center">
                     <IconButton>
-                        <VisibilityIcon className={"color-error"} />
+                        <VisibilityIcon className={100 === 100 ? classes.visibilityIconSuccess : 100 < 50 ? classes.visibilityIconError : classes.visibilityIconWarning} />
                     </IconButton>
                 </MuiTableCell>
             </MuiTableRow>
@@ -211,8 +232,10 @@ export default function Table(props) {
     }
 
     return (
-        <MuiTableContainer component={Paper} className={'table-container'}>
-            <MuiTable dir='rtl' aria-label="collapsible table">
+        <MuiTableContainer component={Paper} className={'table-container'} sx={{
+            maxHeight: "80vh"
+        }}>
+            <MuiTable stickyHeader dir='rtl' aria-label="collapsible table">
                 <MuiTableHead onClick={show}>
                     <MuiTableRow>
                         <StyledTableCell align="center" />

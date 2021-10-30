@@ -22,8 +22,8 @@ const styles = makeStyles((theme) => ({
         overflow: 'auto',
     },
     container: {
-        paddingTop: "15vh",
-        paddingBottom: "15vh",
+        paddingTop: "7vh",
+        // paddingBottom: "15vh",
         fontFamily: 'IRANSansWeb',
         maxWidth: '100% !important',
         display: 'flex !important',
