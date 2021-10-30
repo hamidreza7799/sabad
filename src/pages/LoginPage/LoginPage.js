@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react"
-
+import React, { useState, useContext} from "react"
+import { useHistory } from "react-router-dom";
 import axios from "../../axios"
 import UserContext, { UserContextConsumer, UserContextProvider } from "../../context/UserContext"
 import AppContext, { AppContextConsumer, AppContextProvider } from "../../context/AppContext"
@@ -11,7 +11,7 @@ import loginWallPaper from '../../assets/images/illustration_login.png';
 
 
 function LoginPage(props) {
-
+    const history = useHistory();
     const [login, setLogin] = useState(false)
     const app = useContext(AppContext)
     const user = useContext(UserContext)
@@ -37,7 +37,7 @@ function LoginPage(props) {
                 email: response.data.user.email,
                 password: response.data.user.password
             })
-            window.location.href = "/home";
+            history.push("/home")
         }).catch((error) => {
             app.openMessageDialogHandler({
                 messageType: "error",

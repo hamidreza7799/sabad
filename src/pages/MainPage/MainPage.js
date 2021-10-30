@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import Wrapper from "../../hoc/Wrapper"
 import AppBar from "../../components/AppBar/AppBar"
 import SabadDrawer from "../../components/Drawer/Drawer"
@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import RTL from "../../hoc/RTL/RTL"
 import './MainPage.css'
 import HomeContext from "../../context/HomeContext"
+import UserContext from "../../context/UserContext";
 import { Container } from "@mui/material"
 import Table from "../../components/Table/Table"
 import Toolbar from '@mui/material/Toolbar';

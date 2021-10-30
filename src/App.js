@@ -93,7 +93,6 @@ class App extends React.Component {
                 password: props.password
             }
         })
-        console.log(this.state)
     }
 
     render() {
@@ -132,7 +131,9 @@ class App extends React.Component {
                             <Switch>
                                 <Route path="/" exact component={null} />
                                 <Route path="/login" exact component={LoginPage} />
-                                <Route path="/home" exact component={MainPage} />
+                                <Route path="/home" exact>
+                                    <MainPage />
+                                </Route>
                             </Switch>
                         </Router>
                     </Wrapper>

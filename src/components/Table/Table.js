@@ -53,37 +53,16 @@ const StyledTableCell = styled(MuiTableCell)(({ theme }) => ({
 }));
 
 
-function createData(name, calories, fat, carbs, protein, price) {
-    return {
-        name,
-        calories,
-        fat,
-        carbs,
-        protein,
-        price,
-        history: [
-            {
-                date: '2020-01-05',
-                customerId: '11091700',
-                amount: 3,
-            },
-            {
-                date: '2020-01-02',
-                customerId: 'Anonymous',
-                amount: 1,
-            },
-        ],
-    };
-}
-
 function Row(props) {
     const classes = styles()
     const { row } = props;
     const [open, setOpen] = React.useState(false);
 
+    console.log(row)
+
     return (
         <React.Fragment >
-            <MuiTableRow key={row.name} sx={{ '& > *': { borderBottom: 'unset' } }} className={props.cssClass}>
+            <MuiTableRow key={row.productOwner} sx={{ '& > *': { borderBottom: 'unset' } }} className={props.cssClass}>
                 <MuiTableCell>
                     <IconButton
                         aria-label="expand row"
@@ -94,19 +73,19 @@ function Row(props) {
                     </IconButton>
                 </MuiTableCell>
                 <MuiTableCell component="th" scope="row">
-                    {row.name}
+                    {row.productOwner}
                 </MuiTableCell>
-                <MuiTableCell align="left">{row.calories}</MuiTableCell>
-                <MuiTableCell align="center">{row.fat}</MuiTableCell>
-                <MuiTableCell align="center">{row.carbs}</MuiTableCell>
-                <Tooltip title={"100%"} placement={"right"}>
+                <MuiTableCell align="left">{row.projectName}</MuiTableCell>
+                <MuiTableCell align="center">{row.startDate}</MuiTableCell>
+                <MuiTableCell align="center">{row.numberOfData}</MuiTableCell>
+                <Tooltip title={`${row.completePercent}%`} placement={"right"}>
                     <MuiTableCell align="center">
-                        <ProgressBar value={100} />
+                        <ProgressBar value={row.completePercent} />
                     </MuiTableCell>
                 </Tooltip>
                 <MuiTableCell align="center">
                     <IconButton>
-                        <VisibilityIcon className={100 === 100 ? classes.visibilityIconSuccess : 100 < 50 ? classes.visibilityIconError : classes.visibilityIconWarning} />
+                        <VisibilityIcon className={row.completePercent === 100 ? classes.visibilityIconSuccess : row.completePercent < 50 ? classes.visibilityIconError : classes.visibilityIconWarning} />
                     </IconButton>
                 </MuiTableCell>
             </MuiTableRow>
@@ -150,46 +129,6 @@ function Row(props) {
 }
 
 
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-    createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-    createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-    createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-    createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-    createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-    createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-    createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-    createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-    createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-    createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-    createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-    createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-];
-
-Row.propTypes = {
-    row: PropTypes.shape({
-        calories: PropTypes.number.isRequired,
-        carbs: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        history: PropTypes.arrayOf(
-            PropTypes.shape({
-                amount: PropTypes.number.isRequired,
-                customerId: PropTypes.string.isRequired,
-                date: PropTypes.string.isRequired,
-            }),
-        ).isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        protein: PropTypes.number.isRequired,
-    }).isRequired,
-};
 
 const StyledTableRow = styled(Row)(({ theme }) => ({
     '&:nth-of-child(even)': {
@@ -203,32 +142,54 @@ const StyledTableRow = styled(Row)(({ theme }) => ({
 
 export default function Table(props) {
     const [getTableData, setGetTableData] = useState(false)
+    const [packsData, setPacksData] = useState([])
     const user = useContext(UserContext)
     const app = useContext(AppContext)
-    axios.defaults.headers.common['Authorization'] = user.token
 
-    // useEffect(() => {
-    //     if (!getTableData) {
-    //         setGetTableData(true)
-    //         axios.defaults.headers.common['Authorization'] = user.token
-    //         app.openLoadingHandler()
-    //         axios.get("/api/annotator/tasks/").then((response) => {
-
-    //         }).catch((error) => {
-    //             app.openMessageDialogHandler({
-    //                 messageType: "error",
-    //                 messageText: ''
-    //             })
-    //             console.log(error.response?.data)
-    //         }).finally(() => {
-    //             app.closeLoadingHandler()
-    //         })
-    //     }
-    // })
-
+    useEffect(() => {
+        if (!getTableData) {
+            setGetTableData(true)
+            app.openLoadingHandler()
+            axios.defaults.headers.common['Authorization'] = "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0NSwidXNlcm5hbWUiOiJhbGkiLCJleHAiOjE2MzYwMTA0MjIsImVtYWlsIjoiIiwib3JpZ19pYXQiOjE2MzU1Nzg0MjJ9.-8ocgv1xEVNlTvTgAUja471_YRhHSnvNpN-1h_y_QYQ"
+            axios.get("/api/annotator/tasks/").then((response) => {
+                const packs = response.data.results.map((pack) => {
+                    return {
+                        id: pack.id,
+                        productOwner: pack.task.owner,
+                        projectName: pack.task.subject,
+                        startDate: pack.join_date,
+                        numberOfData: pack.number_of_data,
+                        completePercent: pack.progress,
+                        task: pack.task,
+                        history: [
+                            {
+                                date: '2020-01-05',
+                                customerId: '11091700',
+                                amount: 3,
+                            },
+                            {
+                                date: '2020-01-02',
+                                customerId: 'Anonymous',
+                                amount: 1,
+                            },
+                        ],
+                    }
+                })
+                setPacksData(packs)
+            }).catch((error) => {
+                app.openMessageDialogHandler({
+                    messageType: "error",
+                    messageText: ''
+                })
+                console.log(error.response?.data)
+            }).finally(() => {
+                app.closeLoadingHandler()
+            })
+        }
+    })
 
     const show = () => {
-        console.log(user)
+        console.log(packsData)
     }
 
     return (
@@ -248,8 +209,8 @@ export default function Table(props) {
                     </MuiTableRow>
                 </MuiTableHead>
                 <MuiTableBody>
-                    {rows.map((row, index) => (
-                        <Row key={row.name} row={row} cssClass={index % 2 === 0 ? "colorful-row" : ""} />
+                    {packsData.map((pack, index) => (
+                        <Row key={pack.productOwner} row={pack} cssClass={index % 2 === 0 ? "colorful-row" : ""} />
 
                     ))}
                 </MuiTableBody>
