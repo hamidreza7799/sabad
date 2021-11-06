@@ -58,8 +58,6 @@ function Row(props) {
     const { row } = props;
     const [open, setOpen] = React.useState(false);
 
-    console.log(row)
-
     return (
         <React.Fragment >
             <MuiTableRow key={row.productOwner} sx={{ '& > *': { borderBottom: 'unset' } }} className={props.cssClass}>
@@ -150,14 +148,15 @@ export default function Table(props) {
         if (!getTableData) {
             setGetTableData(true)
             app.openLoadingHandler()
-            axios.defaults.headers.common['Authorization'] = "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0NSwidXNlcm5hbWUiOiJhbGkiLCJleHAiOjE2MzYwMTA0MjIsImVtYWlsIjoiIiwib3JpZ19pYXQiOjE2MzU1Nzg0MjJ9.-8ocgv1xEVNlTvTgAUja471_YRhHSnvNpN-1h_y_QYQ"
             axios.get("/api/annotator/tasks/").then((response) => {
                 const packs = response.data.results.map((pack) => {
+                    // let startDate = new Date(pack.join_date)
+                    // startDate = [startDate.getFullYear(), startDate.getMonth(), startDate.getDay()].join('/')
                     return {
                         id: pack.id,
                         productOwner: pack.task.owner,
                         projectName: pack.task.subject,
-                        startDate: pack.join_date,
+                        startDate: pack.join_date.replace(/T.*/, "").split("-").join("/"),
                         numberOfData: pack.number_of_data,
                         completePercent: pack.progress,
                         task: pack.task,

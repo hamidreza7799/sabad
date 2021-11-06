@@ -37,6 +37,7 @@ function LoginPage(props) {
                 email: response.data.user.email,
                 password: response.data.user.password
             })
+            axios.defaults.headers.common['Authorization'] = "JWT " + response.data.token
             history.push("/home")
         }).catch((error) => {
             app.openMessageDialogHandler({
