@@ -70,15 +70,15 @@ function Row(props) {
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
                 </MuiTableCell>
-                <MuiTableCell component="th" scope="row">
+                <MuiTableCell component="th" scope="row" align="center">
                     {row.productOwner}
                 </MuiTableCell>
-                <MuiTableCell align="left">{row.projectName}</MuiTableCell>
+                <MuiTableCell align="center">{row.projectName}</MuiTableCell>
                 <MuiTableCell align="center">{row.startDate}</MuiTableCell>
                 <MuiTableCell align="center">{row.numberOfData}</MuiTableCell>
                 <Tooltip title={`${row.completePercent}%`} placement={"right"}>
                     <MuiTableCell align="center">
-                        <ProgressBar value={row.completePercent} />
+                        <ProgressBar value={row.completePercent} className={"progress-bar"} />
                     </MuiTableCell>
                 </Tooltip>
                 <MuiTableCell align="center">
@@ -193,14 +193,17 @@ export default function Table(props) {
 
     return (
         <MuiTableContainer component={Paper} className={'table-container'} sx={{
-            maxHeight: "80vh"
+            maxHeight: "80vh",
+            overflowY: "auto",
+            scrollbarColor: "#d4aa70 #e4e4e4",
+            scrollbarWidth: "thin",
         }}>
             <MuiTable stickyHeader dir='rtl' aria-label="collapsible table">
                 <MuiTableHead onClick={show}>
                     <MuiTableRow>
                         <StyledTableCell align="center" />
-                        <StyledTableCell align="left" className={"table-header-cell"} >نام کارفرما</StyledTableCell>
-                        <StyledTableCell align="left" className={"table-header-cell"} >نام پروژه</StyledTableCell>
+                        <StyledTableCell align="center" className={"table-header-cell"} >نام کارفرما</StyledTableCell>
+                        <StyledTableCell align="center" className={"table-header-cell"} >نام پروژه</StyledTableCell>
                         <StyledTableCell align="center" className={"table-header-cell"} >تاریخ شروع</StyledTableCell>
                         <StyledTableCell align="center" className={"table-header-cell"} >تعداد داده</StyledTableCell>
                         <StyledTableCell align="center" className={"table-header-cell"} >درصد پیشرفت</StyledTableCell>

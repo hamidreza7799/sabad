@@ -5,6 +5,10 @@
 }
 
 .colorful-row{
-    background-color: rgba(63, 64, 125, 0.3) !important;
+    background-color: rgba(0, 0, 0, 0.05) !important
     
+}
+
+.progress-bar{
+    border: solid 1px darkgray;
 }
