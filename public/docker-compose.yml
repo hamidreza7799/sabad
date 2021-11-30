@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  react:
+    restart: always
+    container_name: sabad_front
+    image: sabad_front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "npm i && npm start"
+    volumes:
+      - ./src:/app/src
+    ports:
+      - 3000:3000
