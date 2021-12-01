@@ -1,0 +1,57 @@
+export function reverseCoordinates(r1, r2) {
+  let r1X = r1.x,
+    r1Y = r1.y,
+    r2X = r2.x,
+    r2Y = r2.y,
+    d;
+
+  if (r1X > r2X) {
+    d = Math.abs(r1X - r2X);
+    r1X = r2X;
+    r2X = r1X + d;
+  }
+
+  if (r1Y > r2Y) {
+    d = Math.abs(r1Y - r2Y);
+    r1Y = r2Y;
+    r2Y = r1Y + d;
+  }
+  /**
+   * Return the corrected rect
+   */
+  return { x1: r1X, y1: r1Y, x2: r2X, y2: r2Y };
+}
+
+/**
+ * Transform RGBA Canvas to Binary Matrix
+ * @param {object} canvas
+ * @param {object} shape
+ */
+export function canvasToBinaryMatrix(canvas, shape) {
+  let currentLayer = canvas.stageRef.getLayers().filter(layer => layer.attrs.id === shape.id);
+
+  let canv = currentLayer[0].canvas.context;
+
+  let initialArray = canv.getImageData(0, 0, canv.canvas.width, canv.canvas.height);
+
+  let binaryMatrix = [];
+
+  for (
+    let i = 0;
+    i < canvas.stageRef.bufferCanvas.context.canvas.width * canvas.stageRef.bufferCanvas.context.canvas.height * 4;
+    i += 4
+  ) {
+    let alpha = initialArray.data[i + 0];
+    let r = initialArray.data[i + 1];
+    let g = initialArray.data[i + 2];
+    let b = initialArray.data[i + 3];
+
+    if (alpha > 0 || r > 0 || g > 0 || b > 0) {
+      binaryMatrix.push(1);
+    } else {
+      binaryMatrix.push(0);
+    }
+  }
+
+  return binaryMatrix;
+}

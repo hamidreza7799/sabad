@@ -1,0 +1,72 @@
+.app-container {
+  padding: 1rem !important;
+  height: 100vh;
+  padding-left: 2rem !important;
+}
+
+.segment-container-left-menu {
+  height: 90vh;
+  flex-direction: row-reverse !important;
+}
+
+.segment-block-container-left-menu {
+  height: 100%;
+  overflow: hidden;
+  margin-right: auto;
+  margin-left: 30px;
+  border-left: solid 1px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: self-end;
+}
+
+#ViewModel {
+  width: 100%;
+}
+
+#ViewModel > div {
+  width: 100%;
+}
+
+#AudioPlusModel {
+  direction: ltr;
+}
+
+.segment-block-container-left-menu > div > div:first-child {
+  direction: rtl;
+}
+
+.segment-block-container-left-menu > div > div:nth-child(2) {
+  border-top: solid 1px rgba(34, 36, 38, 0.15);
+}
+
+.segment-block-container-left-menu > div > div:nth-child(3) {
+  direction: rtl;
+  padding-right: 1%;
+}
+.segment-block-container-left-menu > div > div:nth-child(4) {
+  border-bottom: solid 1px rgba(34, 36, 38, 0.15);
+  direction: rtl;
+  padding-right: 2%;
+}
+.segment-block-container-left-menu > div > div:nth-child(5) {
+  border-bottom: solid 1px rgba(34, 36, 38, 0.15);
+  direction: rtl;
+  padding-right: 1%;
+}
+
+.view-model {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.side-model {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: start;
+}
+
+#ViewModel {
+  height: 85%;
+}

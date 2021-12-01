@@ -1,0 +1,17 @@
+.tool-button {
+  border: solid 0.5px !important;
+  border-radius: inherit !important;
+  padding: 10px !important;
+  color: #3f407d;
+  border: 1px solid #e5e8ec !important;
+  border-radius: 10px !important;
+  /* color: #007FFF; */
+  background: #fff !important;
+  font-size: 1rem !important;
+  width: 25% !important;
+}
+
+.panel-container {
+  margin-bottom: 1rem !important;
+  flex-direction: row-reverse;
+}

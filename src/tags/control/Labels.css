@@ -1,0 +1,9 @@
+.tag {
+  direction: rtl;
+}
+.tag span {
+  font-size: 0.8rem;
+}
+.tag svg {
+  margin-left: 10px;
+}

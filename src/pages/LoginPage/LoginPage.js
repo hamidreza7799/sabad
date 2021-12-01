@@ -1,13 +1,14 @@
 import React, { useState, useContext} from "react"
 import { useHistory } from "react-router-dom";
 import axios from "../../axios"
-import UserContext, { UserContextConsumer, UserContextProvider } from "../../context/UserContext"
-import AppContext, { AppContextConsumer, AppContextProvider } from "../../context/AppContext"
+import UserContext from "../../context/UserContext"
+import AppContext from "../../context/AppContext"
 import './LoginPage.css'
 import SigninForm from "../../components/From/SigninForm/SigninForm"
 import CircleImage from "../../components/CircleImage/CircleImage"
 import Wrapper from "../../hoc/Wrapper";
 import loginWallPaper from '../../assets/images/illustration_login.png';
+import Cookies from "js-cookie";
 
 
 function LoginPage(props) {
@@ -45,7 +46,13 @@ function LoginPage(props) {
                 localStorage.removeItem("sabadUsername")
                 localStorage.removeItem("sabadPassword")
             }
-            axios.defaults.headers.common['Authorization'] = "JWT " + response.data.token
+            Cookies.set("token", "JWT " + response.data.token)
+            Cookies.set("pk", response.data.user.pk)
+            Cookies.set("firstName", response.data.user.first_name)
+            Cookies.set("lastName", response.data.user.last_name)
+            Cookies.set("username", response.data.user.username)
+            Cookies.set("email", response.data.user.email)
+
             history.push("/home")
         }).catch((error) => {
             app.openMessageDialogHandler({

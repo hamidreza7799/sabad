@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Route, Link, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -23,6 +24,7 @@ import ProgressBar from "./Progress/Progress"
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Tooltip from '@mui/material/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
+import Cookie from 'js-cookie'
 
 const styles = makeStyles((theme) => ({
     visibilityIconSuccess: {
@@ -65,7 +67,7 @@ function Row(props) {
                     <IconButton
                         aria-label="expand row"
                         size="small"
-                        onClick={() => setOpen(!open)}
+                        onClick={() => setOpen(open)}
                     >
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
@@ -82,9 +84,11 @@ function Row(props) {
                     </MuiTableCell>
                 </Tooltip>
                 <MuiTableCell align="center">
-                    <IconButton>
-                        <VisibilityIcon className={row.completePercent === 100 ? classes.visibilityIconSuccess : row.completePercent < 50 ? classes.visibilityIconError : classes.visibilityIconWarning} />
-                    </IconButton>
+                    <Link to={`/project/${props.username}/${props.projectSlug}/task/${props.taskSlug}`}>
+                        <IconButton>
+                            <VisibilityIcon className={row.completePercent === 100 ? classes.visibilityIconSuccess : row.completePercent < 50 ? classes.visibilityIconError : classes.visibilityIconWarning} />
+                        </IconButton>
+                    </Link>
                 </MuiTableCell>
             </MuiTableRow>
             <MuiTableRow>
@@ -148,6 +152,7 @@ export default function Table(props) {
         if (!getTableData) {
             setGetTableData(true)
             app.openLoadingHandler()
+            axios.defaults.headers.common['Authorization'] = Cookie.get("token")
             axios.get("/api/annotator/tasks/").then((response) => {
                 const packs = response.data.results.map((pack) => {
                     // let startDate = new Date(pack.join_date)
@@ -155,6 +160,7 @@ export default function Table(props) {
                     return {
                         id: pack.id,
                         productOwner: pack.task.owner,
+                        projectSlug: pack.task.project,
                         projectName: pack.task.subject,
                         startDate: pack.join_date.replace(/T.*/, "").split("-").join("/"),
                         numberOfData: pack.number_of_data,
@@ -211,10 +217,19 @@ export default function Table(props) {
                     </MuiTableRow>
                 </MuiTableHead>
                 <MuiTableBody>
-                    {packsData.map((pack, index) => (
-                        <Row key={pack.productOwner} row={pack} cssClass={index % 2 === 0 ? "colorful-row" : ""} />
-
-                    ))}
+                    {packsData.map((pack, index) => {
+                        return (
+                            <Row
+                                key={pack.productOwner}
+                                username={pack.productOwner}
+                                projectSlug={pack.task.url.split('/').at(-4)}
+                                taskSlug={pack.task.url.split('/').at(-2)}
+                                row={pack}
+                                cssClass={index % 2 === 0 ? "colorful-row" : ""}
+                            />
+                        )
+                    }
+                    )}
                 </MuiTableBody>
             </MuiTable>
         </MuiTableContainer>

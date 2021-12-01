@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useParams } from "react"
 import Wrapper from "../../hoc/Wrapper"
 import AppBar from "../../components/AppBar/AppBar"
 import SabadDrawer from "../../components/Drawer/Drawer"
@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ScrollTop from "../../components/ScrollTop/ScrollTop";
 import Fab from '@mui/material/Fab';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import AnnotatePage from "../AnnotatePage/AnnotatePage";
 
 const styles = makeStyles((theme) => ({
     appBarSpacer: theme.mixins.toolbar,
@@ -47,13 +48,13 @@ function MainPage(props) {
     const scrollTopHandler = (event) => {
         const anchor = (event.target.ownerDocument || document).querySelector(
             '#back-to-top-anchor',
-          );
-          if (anchor) {
+        );
+        if (anchor) {
             anchor.scrollIntoView({
-              behavior: 'smooth',
-              block: 'center',
+                behavior: 'smooth',
+                block: 'center',
             });
-          }
+        }
     }
 
     return (
@@ -64,23 +65,32 @@ function MainPage(props) {
         }}>
             <Wrapper>
                 <RTL>
-                    <AppBar drawerIsOpen={drawerIsOpen} openDrawerHandler={openDrawerHandler} />
-                    <SabadDrawer drawerIsOpen={drawerIsOpen} openDrawerHandler={openDrawerHandler} closeDrawerHandler={closeDrawerHandler} />
                     {/* <Toolbar id="back-to-top-anchor" /> */}
                     <Router>
+                        <Switch>
+                            <Route exact path="/home">
+                                <AppBar drawerIsOpen={drawerIsOpen} openDrawerHandler={openDrawerHandler} />
+                                <SabadDrawer drawerIsOpen={drawerIsOpen} openDrawerHandler={openDrawerHandler} closeDrawerHandler={closeDrawerHandler} />
+                                <main className={classes.content}>
+                                    <div className={classes.appBarSpacer} />
+                                    <Container maxWidth="lg" className={classes.container}>
+                                        <Table title={'صفحه اصلی'} />
+                                    </Container>
+                                </main>
+                            </Route>
+                            <Route exact path="/project/:username/:projectSlug/task/:taskSlug" component={AnnotatePage} />
+                            <Route exact path="/profile">
+                                {null}
+                            </Route>
+                            <Route exact path="/info">
+                                {null}
+                            </Route>
+                        </Switch>
                         <main className={classes.content}>
                             <div className={classes.appBarSpacer} />
                             <Container maxWidth="lg" className={classes.container}>
                                 <Switch>
-                                    <Route path="/home">
-                                        <Table title={'صفحه اصلی'} />
-                                    </Route>
-                                    <Route path="/profile">
-                                        {null}
-                                    </Route>
-                                    <Route path="/info">
-                                        {null}
-                                    </Route>
+
                                 </Switch>
                             </Container>
                         </main>

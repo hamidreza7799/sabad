@@ -1,0 +1,29 @@
+.delete-button {
+  border: solid 0.5px !important;
+  border-radius: inherit !important;
+  padding: 10px !important;
+  color: #3f407d;
+  border: 1px solid #e5e8ec !important;
+  border-radius: 10px !important;
+  /* color: #007FFF; */
+  background: #fff !important;
+  font-size: 1rem !important;
+  width: 3% !important;
+  margin-right: 10px;
+  border: none !important;
+}
+
+.edit-button {
+  border: solid 0.5px !important;
+  border-radius: inherit !important;
+  padding: 10px !important;
+  color: #3f407d;
+  border: 1px solid #e5e8ec !important;
+  border-radius: 10px !important;
+  /* color: #007FFF; */
+  background: #fff !important;
+  font-size: 1rem !important;
+  width: 3% !important;
+  margin-right: 10px;
+  border: none !important;
+}
