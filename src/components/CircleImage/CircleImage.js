@@ -2,7 +2,7 @@ import React from "react"
 import { Card } from "@mui/material"
 import { CardMedia } from "@mui/material"
 import './CircleImage.css'
-import logo from '../../assets/images/logo.jpg';
+import logo from '../../assets/images/logo.png';
 
 const CircleImage = (props) => {
     return (
