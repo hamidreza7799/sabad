@@ -37,6 +37,14 @@ function LoginPage(props) {
                 email: response.data.user.email,
                 password: response.data.user.password
             })
+            localStorage.setItem("sabadRemeberMe", form_variables.rememberMe)
+            if(form_variables.rememberMe){
+                localStorage.setItem("sabadUsername", form_variables.email_username)
+                localStorage.setItem("sabadPassword", form_variables.password)
+            }else{
+                localStorage.removeItem("sabadUsername")
+                localStorage.removeItem("sabadPassword")
+            }
             axios.defaults.headers.common['Authorization'] = "JWT " + response.data.token
             history.push("/home")
         }).catch((error) => {

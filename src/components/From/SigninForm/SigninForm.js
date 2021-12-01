@@ -23,8 +23,25 @@ class SigninForm extends React.Component {
             email_username: '',
             password: '',
             showPassword: false,
+            rememberMe: false,
         }
     }
+
+    componentDidMount(){
+        const lastRememberMe = localStorage.getItem("sabadRemeberMe")
+        console.log(lastRememberMe)
+        if(lastRememberMe){
+            console.log("In Comojefsadjflksjd")
+            console.log(localStorage.getItem("sabadUsername"))
+            this.setState({
+                ...this.state,
+                email_username: localStorage.getItem("sabadUsername"),
+                password: localStorage.getItem("sabadPassword"),
+                rememberMe: true,
+            })
+        }
+    }
+
 
     emailUsernameHandler = (event) => {
         this.setState({
@@ -44,6 +61,13 @@ class SigninForm extends React.Component {
         this.setState({
             ...this.state,
             showPassword: !this.state.showPassword
+        })
+    }
+
+    rememberMeHandler = (event) => {
+        this.setState({
+            ...this.state,
+            rememberMe: !this.state.rememberMe
         })
     }
 
@@ -115,7 +139,13 @@ class SigninForm extends React.Component {
                             </Grid>
                             <Grid item container justifyContent="space-between">
                                 <Button href="#text-buttons" className={"dark-blue"}>فراموشی رمز عبور؟</Button>
-                                <FormControlLabel control={<Checkbox defaultChecked className={"dark-blue"} />} label="مرا به خاطر بسپار" labelPlacement="start" sx={{
+                                <FormControlLabel 
+                                    onChange={this.rememberMeHandler}
+                                    checked={this.state.rememberMe} 
+                                    control={<Checkbox defaultChecked className={"dark-blue"} />} 
+                                    label="مرا به خاطر بسپار" 
+                                    labelPlacement="start" 
+                                    sx={{
                                     marginLeft: "-2%"
                                 }} />
                             </Grid>
@@ -162,12 +192,12 @@ class SigninForm extends React.Component {
                                     </Button>
                                 </Grid>
                             </Grid>
-  
-                            <Grid item container justifyContent="center" marginTop="5vh">
-                            <Divider sx={{
-                                width: "100%",
 
-                            }}/>
+                            <Grid item container justifyContent="center" marginTop="5vh">
+                                <Divider sx={{
+                                    width: "100%",
+
+                                }} />
                                 <Grid xs={6} item container justifyContent="space-evenly">
                                     <Grid item>
                                         <IconButton aria-label="google-icon" size="large">
@@ -176,7 +206,7 @@ class SigninForm extends React.Component {
                                     </Grid>
                                     <Grid item>
                                         <IconButton aria-label="linkedin-icon" size="large">
-                                            <LinkedInIcon fontSize="inherit" color="warning"/>
+                                            <LinkedInIcon fontSize="inherit" color="warning" />
                                         </IconButton>
                                     </Grid>
                                     <Grid item>
