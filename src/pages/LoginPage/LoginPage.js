@@ -53,7 +53,7 @@ function LoginPage(props) {
             Cookies.set("username", response.data.user.username)
             Cookies.set("email", response.data.user.email)
 
-            history.push("/home")
+            history.push("/")
         }).catch((error) => {
             app.openMessageDialogHandler({
                 messageType: "error",

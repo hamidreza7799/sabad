@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Route, Link, Switch } from 'react-router-dom'
+import { Route, Link, Switch, useHistory} from 'react-router-dom'
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -143,6 +143,7 @@ const StyledTableRow = styled(Row)(({ theme }) => ({
 }));
 
 export default function Table(props) {
+    const history = useHistory();
     const [getTableData, setGetTableData] = useState(false)
     const [packsData, setPacksData] = useState([])
     const user = useContext(UserContext)
@@ -155,8 +156,6 @@ export default function Table(props) {
             axios.defaults.headers.common['Authorization'] = Cookie.get("token")
             axios.get("/api/annotator/tasks/").then((response) => {
                 const packs = response.data.results.map((pack) => {
-                    // let startDate = new Date(pack.join_date)
-                    // startDate = [startDate.getFullYear(), startDate.getMonth(), startDate.getDay()].join('/')
                     return {
                         id: pack.id,
                         productOwner: pack.task.owner,
@@ -186,7 +185,7 @@ export default function Table(props) {
                     messageType: "error",
                     messageText: ''
                 })
-                console.log(error.response?.data)
+                history.push("/login")
             }).finally(() => {
                 app.closeLoadingHandler()
             })

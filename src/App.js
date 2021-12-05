@@ -1,6 +1,5 @@
 import React from "react"
 import LoginPage from "./pages/LoginPage/LoginPage"
-import MainPage from "./pages/MainPage/MainPage";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Wrapper from "./hoc/Wrapper"
 import MessageDialog from "./components/UI/Dialog/MessageDialog/MessageDialog"
@@ -8,11 +7,14 @@ import MessageSnackbar from "./components/UI/Snackbar/MessageSnackbar/MessageSna
 import Loader from './components/UI/Loader/Loader'
 import { AppContextProvider } from "./context/AppContext";
 import { UserContextProvider } from "./context/UserContext";
+import HomePage from "./pages/HomePage/HomePage";
+import AnnotatePage from './pages/AnnotatePage/AnnotatePage'
 
 class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            drawerIsOpen: false,
             isLoading: false,
             messageDialogIsOpen: false,
             messageDialogType: '',
@@ -95,6 +97,20 @@ class App extends React.Component {
         })
     }
 
+    openDrawerHandler = () => {
+        this.setState({
+            ...this.state,
+            drawerIsOpen: true
+        })
+    }
+
+    closeDrawerHandler = () => {
+        this.setState({
+            ...this.state,
+            drawerIsOpen: false
+        })
+    }
+
     render() {
         return (
             <AppContextProvider value={{
@@ -129,10 +145,16 @@ class App extends React.Component {
                         <Loader isLoading={this.state.isLoading}></Loader>
                         <Router>
                             <Switch>
-                                <Route path="/" exact component={null} />
                                 <Route path="/login" exact component={LoginPage} />
-                                <Route path="/home" exact>
-                                    <MainPage />
+                                <Route exact path="/project/:username/:projectSlug/task/:taskSlug" component={AnnotatePage} />
+                                <Route exact path="/profile">
+                                    {null}
+                                </Route>
+                                <Route exact path="/info">
+                                    {null}
+                                </Route>
+                                <Route path="/">
+                                    <HomePage drawerIsOpen={this.state.drawerIsOpen} openDrawerHandler={this.openDrawerHandler} closeDrawerHandler={this.closeDrawerHandler} />
                                 </Route>
                             </Switch>
                         </Router>

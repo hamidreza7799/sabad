@@ -1,101 +1,185 @@
-// import React from "react";
-// import ReactDOM from "react-dom";
-// import { Provider } from "mobx-react";
+import React from "react";
+import ReactDOM from "react-dom";
+import AnnotateApp from "../../components/AnnotateApp/AnnotateApp";
+import { Provider } from "mobx-react";
+import AppStore from "../../stores/AppStore";
+import ProductionEnvironment from "../../env/production";
 
-// import "./assets/styles/global.scss";
-// import App from "./components/App/App";
-// import AppStore from "./stores/AppStore";
-// import ProductionEnvironment from "./env/production";
+const environment = ProductionEnvironment;
 
-// if (process.env.NODE_ENV === "production") {
-//   const environment = ProductionEnvironment;
+class AnnotatePage extends React.Component {
 
-//   window.LabelStudio = function(element, options) {
-//     let params = options;
+    constructor(props) {
+        super(props)
+        this.state = {
+            store: 'null'
+        }
+    }
 
-//     if (params && params.task) {
-//       params.task = environment.getData(params.task);
-//     }
+    componentDidMount() {
+        console.log("This is in annotate page component did mount")
+        let params = {
+            config:
+                `<View>
+      <Labels name="labels" toName="audio">
+          <Label value="گوینده ۱" alias="s1" background="#F7DC6F"/>
+  
+      </Labels>
+        <AudioPlus name="audio" value="$videoSource"/>
+  
+    <View visibleWhen="region-selected">
+      <Header value="متن گوینده ها" />
+    </View>
+  
+    <TextArea name="transcription" toName="audio"
+              rows="4" editable="true" maxSubmissions="2"
+              perRegion="true" required="true" />
+    <View>
+  <Header value="آیا بازه بندی انجام شده است؟"/>
+  <Choices name="topic" toName="audio" showInline="true"  choice="single-radio">
+  
+    <Choice value="تایید"/>
+    <Choice value="اصلاح"/>
+    <Choice value="مشکل ابتدا و انتها"/>
+    <Choice value="سایر"/>
+  </Choices>
+  </View>
+  </View>
+  
+                    `
+            ,
+            description: "Description",
+            user: {
+                pk: 1,
+                firstName: "حمیدرضا",
+                lastName: "آذرباد"
+            },
+            interfaces: [
+                "panel",
+                "update",
+                "controls",
+                "side-column",
+                "completions:menu",
+                "completions:add-new",
+                "completions:delete",
+                "predictions:menu",
+            ],
+            task: {
+                completions: [
+                    {
+                        result: []
+                    }
+                ],
+                annotations: [],
+                predictions: [],
+                id: 1,
+                data: {
+                    videoSource: "http://185.208.77.203:8000/media/user_chitchat/project_armanocr/test-aparat3/data/video/00716_0.mp4"
+                }
+            }
+        };
 
-//     /**
-//      * Configure Application
-//      */
-//     const app = AppStore.create(params, environment.configureApplication(params));
+        if (params && params.task) {
+            params.task = environment.getData(params.task);
+        }
 
-//     /**
-//      * Initialize store
-//      */
-//     app.initializeStore(environment.getState(params.task));
+        /**
+         * Configure Application
+         */
+        const app = AppStore.create(params, environment.configureApplication(params));
 
-//     ReactDOM.render(
-//       <Provider store={app}>
-//         <App />
-//       </Provider>,
-//       environment.rootElement(element),
-//     );
+        /**
+         * Initialize store
+         */
+        app.initializeStore(environment.getState(params.task));
+        this.setState({
+            store: app
+        })
 
-//     window.Htx = app;
-//     return app;
-//   };
-// } else {
-//   const environment = require("./env/development").default;
+        console.log(this.state.store)
+    }
 
-//   window.LabelStudio = function(element, options) {
-//     let params = options;
+    render() {
+        console.log("This is in annotate page")
+        let params = {
+            config:
+                `<View>
+      <Labels name="labels" toName="audio">
+          <Label value="گوینده ۱" alias="s1" background="#F7DC6F"/>
+  
+      </Labels>
+        <AudioPlus name="audio" value="$videoSource"/>
+  
+    <View visibleWhen="region-selected">
+      <Header value="متن گوینده ها" />
+    </View>
+  
+    <TextArea name="transcription" toName="audio"
+              rows="4" editable="true" maxSubmissions="2"
+              perRegion="true" required="true" />
+    <View>
+  <Header value="آیا بازه بندی انجام شده است؟"/>
+  <Choices name="topic" toName="audio" showInline="true"  choice="single-radio">
+  
+    <Choice value="تایید"/>
+    <Choice value="اصلاح"/>
+    <Choice value="مشکل ابتدا و انتها"/>
+    <Choice value="سایر"/>
+  </Choices>
+  </View>
+  </View>
+  
+                    `
+            ,
+            description: "Description",
+            user: {
+                pk: 1,
+                firstName: "حمیدرضا",
+                lastName: "آذرباد"
+            },
+            interfaces: [
+                "panel",
+                "update",
+                "controls",
+                "side-column",
+                "completions:menu",
+                "completions:add-new",
+                "completions:delete",
+                "predictions:menu",
+            ],
+            task: {
+                completions: [
+                    {
+                        result: []
+                    }
+                ],
+                annotations: [],
+                predictions: [],
+                id: 1,
+                data: {
+                    videoSource: "http://185.208.77.203:8000/media/user_chitchat/project_armanocr/test-aparat3/data/video/00716_0.mp4"
+                }
+            }
+        };
 
-//     // this is a way to initialize one of the examples from the src/examples section
-//     if (!options.config) {
-//       environment.getExample().then(result => {
-//         params = {
-//           ...params,
-//           ...result,
-//         };
+        if (params && params.task) {
+            params.task = environment.getData(params.task);
+        }
 
-//         let app = AppStore.create(params, environment.configureApplication(params));
+        /**
+         * Configure Application
+         */
+        const app = AppStore.create(params, environment.configureApplication(params));
 
-//         app.initializeStore({ completions: [params.completion], predictions: params.predictions });
-//         window.Htx = app;
-
-//         ReactDOM.render(
-//           <Provider store={app}>
-//             <App />
-//           </Provider>,
-//           environment.rootElement(element),
-//         );
-//       });
-//     } else {
-//       // this is static initialization from the index.html file
-//       params = {
-//         ...params,
-//         task: {
-//           ...params.task,
-//           data: JSON.stringify(params.task.data),
-//         },
-//       };
-
-//       let app = AppStore.create(params, environment.configureApplication(params));
-
-//       app.initializeStore({ completions: params.task.completions, predictions: params.task.predictions });
-//       window.Htx = app;
-
-//       ReactDOM.render(
-//         <Provider store={app}>
-//           <App />
-//         </Provider>,
-//         environment.rootElement(element),
-//       );
-
-//       return app;
-//     }
-//   };
-// }
-import React from 'react'
-
-
-class AnnotatePage extends React.Component{
-    render(){
-        return(
-            <h2>Heellll</h2>
+        /**
+         * Initialize store
+         */
+        app.initializeStore(environment.getState(params.task));
+        return (
+            <Provider store={app}>
+                <AnnotateApp />
+            </Provider>
+            // <h2>Helllllos</h2>
         )
     }
 }
