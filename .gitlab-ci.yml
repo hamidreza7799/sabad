@@ -1,0 +1,29 @@
+image: python:3.8-alpine
+
+stages:
+  - init
+  - deploy
+
+variables:
+  GIT_STRATEGY: none
+
+init-project:
+  stage: init
+  script:
+    - cd /home/arman/sabad/second-frontend
+    - git init
+    - git remote add origin ssh://git@gitlab.farakaft.ir:h.azarbad/sabad-front.git
+    - git pull
+    - ls
+    - git checkout master
+    - echo "Project is inital"
+  only:
+    - init
+
+deploy-project:
+  stage: deploy
+  script:
+    - cd /home/arman/sabad/second-frontend
+    - git pull origin master
+  only:
+    - master
