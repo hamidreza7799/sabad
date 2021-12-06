@@ -68,7 +68,7 @@ export default inject("store")(
           variant="outlined"
           startIcon={<FontAwesomeIcon icon={faChevronLeft} />}
           sx={{ direction: "ltr", fontSize: "1rem", minWidth: "110px", color: "black", border: "solid 1px" }}
-          onClick={() => {}}
+          onClick={store.skipTask}
         >
           بازگشت
         </Button>
