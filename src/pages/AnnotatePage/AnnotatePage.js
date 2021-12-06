@@ -1,4 +1,6 @@
 import React from "react";
+import Wrapper from '../../hoc/Wrapper';
+import MessageSnackbar from "../../components/UI/Snackbar/MessageSnackbar/MessageSnackbar";
 import AnnotateApp from "../../components/AnnotateApp/AnnotateApp";
 import { Provider } from "mobx-react";
 import AppStore from "../../stores/AppStore";
@@ -28,10 +30,18 @@ class AnnotatePage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            snackbarIsOpen: false,
             store: null,
             baseUrl: '',
             main_dataset_id: -1,
         }
+    }
+
+    closeSnackbarHandler = () => {
+        this.setState({
+            ...this.state,
+            snackbarIsOpen: false
+        })
     }
 
     getAnnotateData = (baseUrl) => {
@@ -70,13 +80,14 @@ class AnnotatePage extends React.Component {
                 this.setState({
                     ...this.state,
                     store: app,
-                    main_dataset_id: dataRespose.data.main_dataset_id
+                    main_dataset_id: dataRespose.data.main_dataset_id,
+                    snackbarIsOpen: true,
                 })
             })
         }).catch((error) => {
             this.context.openMessageDialogHandler({
                 messageType: "error",
-                messageText: ''
+                messageText: error.response?.data.detail
             })
         }).finally(() => {
             this.context.closeLoadingHandler()
@@ -99,7 +110,7 @@ class AnnotatePage extends React.Component {
             }).catch((error) => {
                 this.context.openMessageDialogHandler({
                     messageType: "error",
-                    messageText: "",
+                    messageText: error.response?.data.detail,
                 })
             }).finally(() => {
                 this.context.closeLoadingHandler()
@@ -124,7 +135,7 @@ class AnnotatePage extends React.Component {
             }).catch((error) => {
                 this.context.openMessageDialogHandler({
                     messageType: "error",
-                    messageText: "",
+                    messageText: error.response?.data.detail,
                 })
             }).finally(() => {
                 this.context.closeLoadingHandler()
@@ -140,7 +151,7 @@ class AnnotatePage extends React.Component {
         }).catch((error) => {
             this.context.openMessageDialogHandler({
                 messageType: "error",
-                messageText: "",
+                messageText: error.response?.data.detail,
             })
         }).finally(() => {
             this.context.closeLoadingHandler()
@@ -162,9 +173,12 @@ class AnnotatePage extends React.Component {
     render() {
         if (this.state.store) {
             return (
-                <Provider store={this.state.store}>
-                    <AnnotateApp />
-                </Provider>
+                <Wrapper>
+                    <MessageSnackbar isOpen={this.state.snackbarIsOpen} messageType={"success"} messageText={"موفقیت‌آمیز بود"} closeHnadler={this.closeSnackbarHandler}/>
+                    <Provider store={this.state.store}>
+                        <AnnotateApp />
+                    </Provider>
+                </Wrapper>
             )
         } else {
             return (

@@ -57,9 +57,8 @@ function LoginPage(props) {
         }).catch((error) => {
             app.openMessageDialogHandler({
                 messageType: "error",
-                messageText: ''
+                messageText: error.response?.data.non_field_errors[0]
             })
-            console.log(error.response?.data)
         }).finally(() => {
             app.closeLoadingHandler()
         })

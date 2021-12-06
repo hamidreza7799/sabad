@@ -183,9 +183,10 @@ export default function Table(props) {
             }).catch((error) => {
                 app.openMessageDialogHandler({
                     messageType: "error",
-                    messageText: ''
+                    messageText: error.response?.data.detail
                 })
-                history.push("/login")
+                if(error.response.status != 500)
+                    history.push("/login")
             }).finally(() => {
                 app.closeLoadingHandler()
             })
