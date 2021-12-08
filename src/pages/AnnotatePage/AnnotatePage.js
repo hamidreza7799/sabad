@@ -8,6 +8,7 @@ import ProductionEnvironment from "../../env/production";
 import AppContext from '../../context/AppContext';
 import axios from '../../axios';
 import Cookie from "js-cookie";
+import './AnnotatePage.css'
 
 const environment = ProductionEnvironment;
 
