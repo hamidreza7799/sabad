@@ -66,7 +66,7 @@ class AnnotatePage extends React.Component {
                         "email": Cookie.get("email"),
                     },
                     task: {
-                        completions: dataRespose.data.completions,
+                        completions: (dataRespose.data?.completions.length > 0) ? dataRespose.data.completions: [{result:[]}],
                         predictions: dataRespose.data.predictions,
                         id: 1,
                         data: dataRespose.data.data,
